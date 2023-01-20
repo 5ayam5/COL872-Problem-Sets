@@ -1,0 +1,153 @@
+\mathchardef\mhyphen="2D
+\documentclass[11pt]{article}
+\usepackage[english]{babel}
+\usepackage{minted}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[hypcap=false]{caption}
+\usepackage{booktabs}
+\usepackage[left=25mm, top=25mm, bottom=25mm, right=25mm]{geometry}
+\usepackage{soul}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage[most]{tcolorbox}
+\usepackage[colorlinks=true,linkcolor=darkcyan,filecolor=darkcerulean,urlcolor=magenta]{hyperref}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calC}{\mathcal{C}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calE}{\mathcal{E}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calG}{\mathcal{G}}
+\newcommand{\calH}{\mathcal{H}}
+
+\newcommand{\calK}{\mathcal{K}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calP}{\mathcal{P}}
+
+\newcommand{\calR}{\mathcal{R}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+
+\newcommand{\keygen}{\mathsf{KeyGen}}
+\newcommand{\enc}{\mathsf{Enc}}
+\newcommand{\dec}{\mathsf{Dec}}
+\newcommand{\negl}{\mathsf{negl}}
+
+\newcommand{\phybb}[1]{p_{\mathrm{hyb}, #1}}
+\newcommand{\lin}{\ell_{\mathrm{in}}}
+\newcommand{\lout}{\ell_{\mathrm{out}}}
+\newcommand{\bit}{\{0,1\}}
+\newcommand{\sd}{\mathsf{SD}}
+\newcommand{\swap}{\mathsf{swap}}
+
+\newcommand{\func}[2]{\mathsf{Func}[#1, #2]}
+\newcommand{\perm}[2]{\mathsf{Perm}[#1, #2]}
+\newcommand{\ct}{\mathsf{ct}}
+\newcommand{\Finverse}{F^{-1}}
+
+\newcommand{\nqss}{\mathsf{No\mhyphen Query \mhyphen Semantic \mhyphen Security}}
+
+\newcommand{\prob}[1]{\Pr\left[ #1 \right]}
+
+\newlength{\protowidth}
+\newcommand{\pprotocol}[4]{
+{\begin{center}
+\setlength{\protowidth}{\textwidth}
+\addtolength{\protowidth}{-3\intextsep}
+
+\fbox{
+        \small
+        \hbox{\quad
+        \begin{minipage}{\protowidth}
+    \begin{center}
+    {\bf #1}
+    \end{center}
+        #4
+        \end{minipage}
+        \quad}
+        }
+        \captionof{figure}{\label{#3} #2}
+\end{center}
+} }
+
+\newcommand{\defbox}[1]{
+{\begin{center}
+\setlength{\protowidth}{\textwidth}
+\addtolength{\protowidth}{-3\intextsep}
+
+\fcolorbox{darkcerulean}{cottoncandy}{
+        \small
+        \hbox{\quad
+        \begin{minipage}{\protowidth}
+    
+        #1
+        \end{minipage}
+        \quad}
+        }
+\end{center}
+        } }
+
+\newcommand{\protocol}[4]{
+\pprotocol{#1}{#2}{#3}{#4} }
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem*{question}{Question}
+
+\newtcolorbox{solution}[2][]{every float=\centering,breakable,enhanced,adjusted title={#2},colback=codegray,colframe=codegray!50!black}
+
+\linespread{1.0}
+
+\definecolor{codegray}{rgb}{0.98,0.97,0.93}
+\definecolor{cottoncandy}{rgb}{1.0, 0.84, 0.95}
+\definecolor{darkcerulean}{rgb}{0.03, 0.27, 0.49}
+\definecolor{darkcyan}{rgb}{0.0, 0.50, 0.45}
+
+\title{COL872\\Problem Set 1}
+\author{Mallika Prabhakar (2019CS50440)\\Sayam Sethi (2019CS10399)\\Satwik Jain (2019CS10398)}
+\date{January 2023}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\pagenumbering{arabic}
+
+\newpage
+\section{Question 1}
+\input{1}
+
+
+\newpage
+\section{Question 2}
+\input{2}
+
+
+\newpage
+\section{Question 3}
+\input{3}
+
+\newpage
+\section{Question 4}
+\input{4}
+
+
+\newpage
+\section{Question 5}
+\input{5}
+
+
+\newpage
+\section{Question 6}
+\input{6}
+
+\end{document}
