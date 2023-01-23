@@ -1,9 +1,11 @@
-\begin{solution}{Question 3.2: xyz}\label{ques:32}
+\begin{solution}{Question 3.2: Small Secrets LWE - Matrix Version}\label{ques:32}
     \begin{question}
-    ques
+    Let $q = 2^\sqrt{n}$ and $\chi \equiv \unif{\sqrt{q}}$. Would this problem remain hard if even A is chosen from $\chi^{n \times m}$ in both the distributions?
     \end{question}
     \tcblower{}
     \begin{proof}
-    this proof
+    Nothing can be determined for the current range of $\chi$ since the range of $\bfS\cdot\bfA+\bfE$ spans $\z_q^{n\times m}$
+    
+    But if $\chi \equiv \unif{q^\frac{1}{4}}$, then it can be said with certainty that these two distributions are \textbf{not equivalent} as the max value in the second matrix of distribution $\calD_1$ will be $n\times q^{\frac{1}{2}} + q^{\frac{1}{4}}$ which is less than $q/2$ and thus It will not contain a lot of values present in the uniform distribution $\z_q$ and thus will be distinguishable from second distribution drawn over $\z_q^{n \times m}$.
     \end{proof}
-\end{solution}
+\end{solution}` 
