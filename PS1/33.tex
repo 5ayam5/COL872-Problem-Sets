@@ -1,9 +1,9 @@
-\begin{solution}{Question 3.3: xyz}\label{ques:33}
+\begin{solution}{Question 3.3: Small Secrets LWE - Matrix Version}\label{ques:33}
     \begin{question}
-    ques
+    Recall, in the Learning-with-errors problem, if $m = n$, then the two distributions are statistically indistinguishable. Does the same hold true in the small- secrets setting?
     \end{question}
     \tcblower{}
     \begin{proof}
-    this proof
+    As Small Secrets LWE and normal LWE are equivalent to each other,if $m=n$, the small secrets lwe will maintain statistical indistinguishability. Otherwise as there is a polynomial time reduction from $\sslwe$ to $\lwe$, then if $\sslwe$ is distinguishable, then it can be reduced to a $\lwe$ which will also be distinguishable, which contradicts the established fact that $\lwe$ is statistically indistinguishable, if $m=n$.
     \end{proof}
 \end{solution}
