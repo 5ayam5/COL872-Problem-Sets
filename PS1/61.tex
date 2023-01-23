@@ -1,0 +1,9 @@
+\begin{solution}{Question 6.1: Code Obfuscation}\label{ques:61}
+    \begin{question}
+        What is the issue with the attempt involving integers?
+    \end{question}
+    \tcblower{}
+    \begin{proof}
+        The proposed \textbf{Attempt 1} does not ensure correctness since it is possible that for some other integer $z'$, $\Sigma_i a_{i,z'_i} = 0$ since all entries other than $a_{t,z_t}$ are randomly sampled. For instance, consider the following case when $a_{t,1-z_t} = -\Sigma_{i<t}a_{i,z_i}(\mod q)$. Then, $\eval(\obf(f_z), z) = \eval(\obf(f_z), z\oplus 1) = 1$, which is incorrect.
+    \end{proof}
+\end{solution}
