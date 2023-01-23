@@ -1,9 +1,32 @@
-\begin{solution}{Question 5: xyz}\label{ques:5}
+\begin{solution}{Question 5: Random-looking $t$ matrices with a special structure}\label{ques:5}
     \begin{question}
-    ques
+        Define distribution $\calD$ that is indistinguishable from $\left(\z_q^{n\times 2n}\right)^t$ and no subset sum of an element sampled from this distribuion has \textit{only small entries}.
     \end{question}
     \tcblower{}
     \begin{proof}
-    this proof
+        We define the distribution as follows:
+        \begin{equation}
+            \begin{split}
+                \calD = &\left(\bfB_0, \bfB_1, \ldots, \bfB_t\right)\\
+                \bfB_i = &\left[\bfA_i | \bfC_i\right], \forall i\in [t]\\
+                \bfC_i = &\bfA_i\cdot\bfS_i + \bfE_i + \bfD_i\\
+                &\bfA_i\gets\z_q^{n\times n}, \bfS_i\gets\chi^{n\times n}, \bfE_i\gets\chi^{n\times n}, \bfD_i\gets d^{n\times n}
+            \end{split}
+        \end{equation}
+        We now define $\chi$ and $d$ appropriately so that the required properties are satisfied. Consider any matrix $\bfB_p$ from the tuple sampled from $\calD$. This is made up of $\bfA_p$ and $\bfC_p$. We will now choose $d$ in such a way that exactly one of these two matrices can have \textit{only small entries}. Now, if $\bfA_p$ does not have \textit{only small entries}, any value of $d$ will work. Therefore, we consider the case when $\bfA_p$ is made up of \textit{only small entries}. Also, consider $\chi$ to be of the form $\unif{m}$ where we have to determine the value of $m$ (which has to be some power of $q$ for LWE to remain a hard computational problem, say $\alpha$). Also, WLOG, we assume $d$ to be positive and it lies between $0$ to $q/2$. We now consider the \textit{worst-case scenario} such that $d$ has to be the largest possible value:
+        \begin{equation}
+            \begin{split}
+                \sum_{k\in[n]}\left(a_{ik}\cdot s_{kj}\right) + e_{ij} + d &> q^{0.75}\\
+                \implies d &> q^{0.75} - e_{ij} - \sum_{k\in[n]}\left(a_{ik}\cdot s_{kj}\right)\\
+                           &> q^{0.75} + m + n\times\left(q^{0.75}\cdot m\right)\\
+                           &> q^{0.75} + q^\alpha + n\cdot q^{\alpha + 0.75}\\
+                \implies d &\geq 1 + q^{0.75}\times(1 + n\cdot q^\alpha) + q^\alpha\\
+                           &\geq q^{0.75}\times(3 + n\cdot q^\alpha)\\
+                           &\geq (n + 3)\cdot q^{\alpha + 0.75}\\
+                           &\geq q^{\epsilon + \alpha + 0.75} = q^{\alpha' + 0.75}
+            \end{split}
+        \end{equation}
+        We replace $(n + 3)$ by $q^\epsilon$ since we are dealing with large numbers and $O(\log^2(q)) < O(q^\gamma)$. Now, since we assumed that $d$ has to be $\leq q/2 = O(q)$, therefore, $\alpha < \alpha' < 0.25$. Also, let $\alpha' + 0.75 = \beta$\par
+        % We now consider any subset $S = \{i_1, i_2, \ldots, i_r\} \subseteq [t]$. The subset sum of the tuple will be $\left[\bfA_{i_1} + \bfA_{i_2} + \cdots + \bfA_{i_r} | \bfC_{i_1} + \bfC_{i_2} + \cdots + \bfC_{i_r}\right]$. Now, if all of these $A_{i_j}$ have \textit{only small entries}, then using the above argument we are done (since $t\cdot d = o(q) < q - q^{0.75}$). Similarly, when $\sum_{j\in [r]} A_{i_j}$ does not have \textit{only small entries}, we are done as well. We now need to argue correctness for the case when not all of $A_{i_j}$ have \textit{only small entries} but $\sum_{j\in [r]} A_{i_j}$ has \textit{only small entries}.
     \end{proof}
 \end{solution}
