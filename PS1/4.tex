@@ -4,12 +4,94 @@
     Show that $\mathcal{D}$ is computationally indistinguishable from the uniform distribution over \\ $\mathcal{Z}_q^{2n\times n} \times \mathcal{Z}_q^{2n\times2n}$.
     \end{question}
     \tcblower{}
+    
     \begin{proof}
-    Let's start with a new Distribution,\\ $\mathcal{D}_1 = \{ (A^T,B^T . A^T +E^T) : A^T \leftarrow \mathcal{Z}_q^{n\times 2n}, B^T \leftarrow \mathcal{Z}_q^{2n\times n}, E^T \leftarrow \chi^{2n\times 2n} \}$.
+    Let us start by defining 3 Distributions over $\mathcal{Z}_q^{n\times 2n} \times \mathcal{Z}_q^{n\times 2n}$:
+     
+     $\mathcal{D}_0 = \{ (A^T,B^T . A^T +E^T) : A^T \leftarrow \mathcal{Z}_q^{n\times 2n}, B^T \leftarrow \mathcal{Z}_q^{2n\times n}, E^T \leftarrow \chi^{2n\times 2n} \}$,\\
 
-    Let us start by defining 3 worlds:
-    \textbf{World 0}:
+     $\mathcal{D}_1 = \{ (A^T,p) \text{ where } p = [p_{ij}]$ and  $p_{ij} = 
+     \begin{cases}
+      e_{ij} + \sum_{k=0}^{n} b_{ik}\times a_{kj} , &\text{ if } i \leq n \\
+      q, q\leftarrow \mathcal{Z}_q, &\text{ if } i>n
+     \end{cases} $
+     
+     where $ b_{ik}\leftarrow B^T, a_{kj}\leftarrow A^T, e_{ij}\leftarrow E^T $
+
+     and 
+
+     $\mathcal{D}_2 = \{ (A^T,U^T) : A^T \leftarrow \mathcal{Z}_q^{n\times 2n}, U^T \leftarrow \mathcal{Z}_q^{2n\times 2n} \}$.
+
+     \begin{claim}
+     Distributions $\calD_0$ and $\calD_1$ are computationally indistinguishable.
+     \end{claim}
+
+     \begin{proof}
+         The Distributions $\calD_0$ and $\calD_1$ differ only at the last n rows of the second matrix which forms a submatrix of dimensions $n \times 2n$.
+
+         We can divide the Distribution $\calD_0$ into two Distributions $\calD_{01}$ and $\calD_{02}$ over $\mathcal{Z}_q^{n\times 2n} \times \mathcal{Z}_q^{n\times 2n}$ where $\calD_{01}$ consists of first n rows of Second matrix in $\calD_0$ and $\calD_{02}$ consists of last n rows of Second Matrix.
+
+         Similarly we can create Distributions $\calD_{11}$ and $\calD_{12}$ from $\calD_{1}$.
+
+         Now We can see that the Distributions $\calD_{01}$ and $\calD_{11}$ are identical.
+
+         So to show $\calD_0$ and $\calD_1$ are computationally indistinguishable, it suffices to show that $\calD_{02}$ and $\calD_{12}$ are computationally indistinguishable.\\
+
+         now, $\mathcal{D}_{02} = \{ (A^T,F): F = B' . A^T + E', A^T \leftarrow \mathcal{Z}_q^{n\times 2n}, B' \leftarrow \mathcal{Z}_q^{n\times n}, E' \leftarrow \mathcal{Z}_q^{n\times 2n}\}$
+
+         $B'$ is bottom n rows of $B^T$, $E'$ is bottom n rows of $E^T$, and 
+         
+         $\mathcal{D}_{12} = \{ (A^T,F):  A^T,F \leftarrow \mathcal{Z}_q^{n\times 2n} \}$\\
+
+         Form Questions 3, we know about the matrix version of Small Secrets LWE. As LWE and Small Secrets LWE are equally hard, we can get the matrix version of LWE.
+
+        Using the matrix Version of LWE, $\calD_{02}$ and $\calD_{12}$ are computationally indistinguishable.
+
+        Therefore, Distributions $\calD_0$ and $\calD_1$ are computationally indistinguishable.
+         
+     \end{proof}
     
-    
+\begin{claim}
+     Distributions $\calD_1$ and $\calD_2$ are computationally indistinguishable.
+     \end{claim}
+
+    \begin{proof}
+        The Distributions $\calD_1$ and $\calD_2$ differ only at the first n rows of the second matrix which forms a submatrix of dimensions $n \times 2n$.
+
+         We can divide the Distribution $\calD_1$ into two Distributions $\calD_{11}$ and $\calD_{12}$ over $\mathcal{Z}_q^{n\times 2n} \times \mathcal{Z}_q^{n\times 2n}$ where $\calD_{11}$ consists of first n rows of Second matrix in $\calD_1$ and $\calD_{12}$ consists of last n rows of Second Matrix.
+
+         Similarly we can create Distributions $\calD_{21}$ and $\calD_{22}$ from $\calD_{2}$.
+
+         Now We can see that the Distributions $\calD_{12}$ and $\calD_{22}$ are identical.
+
+         So to show $\calD_1$ and $\calD_2$ are computationally indistinguishable, it suffices to show that $\calD_{11}$ and $\calD_{21}$ are computationally indistinguishable.\\
+
+         now, $\mathcal{D}_{11} = \{ (A^T,F): F = B' . A^T + E', A^T \leftarrow \mathcal{Z}_q^{n\times 2n}, B' \leftarrow \mathcal{Z}_q^{n\times n}, E' \leftarrow \mathcal{Z}_q^{n\times 2n}\}$
+
+         $B'$ is top n rows of $B^T$, $E'$ is  top n rows of $E^T$, and 
+         
+         $\mathcal{D}_{21} = \{ (A^T,F):  A^T,F \leftarrow \mathcal{Z}_q^{n\times 2n} \}$\\
+
+        Using the matrix Version of LWE, $\calD_{11}$ and $\calD_{21}$ are computationally indistinguishable.
+
+        Therefore, Distributions $\calD_1$ and $\calD_2$ are computationally indistinguishable.
+    \end{proof}
+
+
+From the above two claims, we can say that the Distributions $\calD_0$ and $\calD_2$ are computationally indistinguishable.
+
+As Transposing a matrix is just changing the positions of the elements in the matrix, it cannot change the matrix computationally. Using this, we can define two new distributions by just taking the transpose of the matrices in the computationally indistinguishable Matrices which will also be computationally indistinguishable.
+
+Taking Transpose,
+
+$\mathcal{D'}_0 = \{ (A,A.B +E) : A \leftarrow \mathcal{Z}_q^{2n\times n}, B \leftarrow \mathcal{Z}_q^{n\times 2n}, E \leftarrow \chi^{2n\times 2n} \}$.
+
+and
+
+$\mathcal{D'}_2 = \{ (A,U) : A \leftarrow \mathcal{Z}_q^{2n\times n}, U \leftarrow \mathcal{Z}_q^{2n\times 2n} \}$.
+
+here $\calD'_0 = \calD$ and $\calD'_2$ is a uniform distribution over $\mathcal{Z}_q^{2n\times n} \times \mathcal{Z}_q^{2n\times 2n}$.
+
+Thus $\calD$ is computationally indistinguishable from a Uniform Distribution over $\mathcal{Z}_q^{2n\times n} \times \mathcal{Z}_q^{2n\times 2n}$.
     \end{proof}
 \end{solution}

@@ -1,0 +1,60 @@
+\begin{solution}{Question 3.1: Small Secrets LWE - Matrix Version}\label{ques:31}
+    \begin{question}
+    In this problem, you have to prove the indistinguishabllity of the matrix version of the ss-LWE assuming that the normal version of ss-LWE is computationally hard. 
+    \end{question}
+    \tcblower{}
+    
+    \begin{proof}
+    We have the following Distributions:
+
+    $\mathcal{D}_{1} = \{ (A,B): B = S . A + E, A \leftarrow \mathcal{Z}_q^{n\times m}, S \leftarrow \chi^{n\times n}, E \leftarrow \chi^{n\times m}\}$
+
+    and $\mathcal{D}_{2} = \{ (A,B):  A,B \leftarrow \mathcal{Z}_q^{n\times m} \}$
+
+    We have to show that the distributions $\calD_1$ and $\calD_2$ are computationally indistinguishable.\\
+    
+    Let's create n-1 hybrid distributions $\calH_1,\calH_2,\cdots,\calH_{n-1}$ where 
+
+    $\calH_i = \{ (A,B): B = [b_j] \text{ where }b_j = 
+    \begin{cases}
+    j^{th} \text{ row of } S.A+E, &\text{ if } j \leq i\\
+    \mathcal{Z}_q^{1\times m} &i < j\leq n-1 
+    \end{cases}$
+
+    \begin{claim}
+    $\calD_1$ and $\calH_1$ are computationally indistinguishable.
+    \end{claim}
+
+    \begin{proof}
+        The distributions $\calD_1$ and $\calH_1$ differ only at the first row of the second matrix in an instance of the distribution. If an adversary is able to distinguish between the two distributions,  this means it is able to distinguish between the rows of two distributions. This can be used to achieve a reduction that breaks $\sslwe$. but this contradicts the fact that $\sslwe$ is a hard computational problem.
+
+        So, $\calD_1$ and $\calH_1$ are computationally indistinguishable Distributions.
+        
+    \end{proof}
+
+    \begin{claim}
+    $\calH_{i-1}$ and $\calH_{i}$ are computationally indistinguishable.
+    \end{claim}
+
+    \begin{proof}
+        The distributions $\calH_{i-1}$ and $\calH_i$ differ only at the $i^{th}$ row of the second matrix in an instance of the distribution. If an adversary is able to distinguish between the two distributions, this means it is able to distinguish between the rows of two distributions. This can be used to achieve a reduction that breaks $\sslwe$. but this contradicts the fact that $\sslwe$ is a hard computational problem.
+
+        So, $\calH_{i-1}$ and $\calH_i$ are computationally indistinguishable Distributions.
+        
+    \end{proof}
+
+    \begin{claim}
+    $\calH_{n-1}$ and $\calD_2$ are computationally indistinguishable.
+    \end{claim}
+
+    \begin{proof}
+    The distributions $\calH_{n-1}$ and $\calD_2$ differ only at the last row of the second matrix in an instance of the distribution. If an adversary is able to distinguish between the two distributions, this means it is able to distinguish between the rows of two distributions. This can be used to achieve a reduction that breaks $\sslwe$. but this contradicts the fact that $\sslwe$ is a hard computational problem.
+
+        So, $\calH_{n-1}$ and $\calD_2$ are computationally indistinguishable Distributions.
+        
+    \end{proof}
+
+    Using the claims proven above, we can say that the distributions $\calD_1$ and $\calD_2$ are computationally indistinguishable.
+    
+    \end{proof}
+\end{solution}

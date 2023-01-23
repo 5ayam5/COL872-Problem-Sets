@@ -5,12 +5,6 @@ satisfying all the above properties, then $\calE' = (\setup', \enc', \dec')$ is 
 and semantically secure public key encryption scheme.
     \end{question}
     \tcblower{}
-%Q1 solution:
-%assuming that adversary makes t queries, we make 3 * t + 1 hybrids
-%hybrid 0 is encrypting all m_0 using Setup pk
-%hybrid i is encryption first i m_0 using Lossy-Setup pk, remaining using Setup pk
-%hybrid t+1 to 2t is encrypting last i queries using m_1 instead of m_0 all using Lossy-Setup pk
-%hybrid 2t+1 to 3t is encrypting m_1 and the last i queries using Setup pk instead of Lossy-Setup pk
     \begin{proof}
     \textbf{To Prove:} $\calE'$ is a correct and semanticaly secure PKE given $\calE$ as described in the problem statement.\\
     \textbf{Correctness}\\
@@ -55,11 +49,10 @@ and semantically secure public key encryption scheme.
         \end{enumerate}
     \end{itemize}
 
-    \textbf{World 0 and Hybrid 0}\\
-    computational\\
-    \textbf{Hybrid 0 and Hybrid 1}\\
-    statistical \\
-    \textbf{Hybrid 1 and World 1}\\
-    computational\\
+    \textbf{World 0 and Hybrid 0}: From indistinguishability of modes, we know that the public keys are sampled from computationally indistinguishable distributions. Therefore, if World 0 and Hybrid 0 were far apart, we would be able to come up with an adversary that breaks the indistinguishability of modes. Hence, these two worlds are close.\par
+    \textbf{Hybrid 0 and Hybrid 1}: We know that the distributions for any two messages are statistically indistinguishable in lossy mode. Therefore, no (unbounded) adversary can differentiate between these two hybrids.\par
+    \textbf{Hybrid 1 and World 1}: Similar argument follows as for closeness of World 0 and Hybrid 0.\par
+
+    Therefore, we have shown that if $\calE$ is a secure lossy encryption scheme, then $\calE'$ is a correct and semantically secure encryption scheme.
     \end{proof}
 \end{solution}

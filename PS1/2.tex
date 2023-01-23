@@ -1,12 +1,36 @@
 \begin{solution}{Question 2: A Lossy Encryption Scheme based on LWE}\label{ques:2}
     \begin{question}
-    In this problem, you will have to construct a lossy encryption mode for Regev
-encryption. The algorithms $\setup, \enc, \dec$ are defined as in class (see Lecture Notes).
-You must define the $\lsetup$ algorithm, and then show that it is a secure lossy
-encryption scheme.
+    In this problem, you will have to construct a lossy encryption mode for Regev encryption. The algorithms $\setup, \enc, \dec$ are defined as in class (see Lecture Notes). You must define the $\lsetup$ algorithm, and then show that it is a secure lossy encryption scheme.
     \end{question}
+% Define setup lossy algorithm formally (dont worry about sk pk)
+% Public keys output by setup and setup lossy are computationally indistinguishable
+% statistical indistinguishability in the lossy mode
+%
     \tcblower{}
-    \begin{proof}
-    this proof
+    \begin{proof} Following are the steps to generate the desired lossy encryption scheme-\\
+    \textbf{1. Definition: Lossy Setup Algorithm}\\
+    $\lsetup(1^n)$: $pk=(A,b)$ where $A\leftarrow\z^{n\times m}_q$ and $b\leftarrow\z^m_q$\\
+    $pk$ is the lossy public key.\\
+
+    
+    \textbf{2. Indistinguishability of the modes}\\
+    \textbf{To Prove:} $pk\leftarrow\setup(1^n)$ is computationally indistinguishable from $pk'\leftarrow\lsetup(1^n)$\\
+     $pk'(A,b)$ where $A\leftarrow\z^{n\times m}_q$ and $b\leftarrow\z^m_q$, therefore $pk'$ is completely random.\\
+     $pk = (A,b)$ where $A\leftarrow\z^{n\times m}_q$ and $b^T = s^T \cdot A +e^T$ where $s\leftarrow\z^n_q$ is a secret and $e\leftarrow\chi^m$ is random error as per Regev's PKE Scheme.
+    \\
+    Following LWE, the distribution of $pk$ and $pk'$ should be computationally indistinguishable as $b^T = s^T \cdot A +e^T$ and $b\leftarrow\z^m_q$ are computationally indistinguishable due to LWE.\\
+    
+     
+    \textbf{3. Statistical indistinguishability in the lossy mode}\\
+    \textbf{To Prove:} given $m_0, m_1$;\\ \{$pk, \enc(pk,m_0) : pk\leftarrow\lsetup(1^n)$\} = \{$pk, \enc(pk,m_1) : pk\leftarrow\lsetup(1^n)$\}\\
+    Let's take $m_0$, $\enc(m_0, pk_{lossy}) = (A\cdot r, b^T\cdot r+m_0\times\frac{q}{2})$ where $r\leftarrow\{0,1\}^m$\\
+    Using Leftover Hash Lemma, $A\cdot r$ is same as a random vector (statistically). Therefore $r$ can not be recovered from $A\cdot r$ and thereby $b^T\cdot r$ is random. $m_0\times\frac{q}{2}$ + random is still random.\\
+    Similarly, from $m_1$, above steps are repeated and we again arrive at a random vector.\\
+    Therefore having sent encryption of either $m_0$ or $m_1$ in lossy encryption mode, it is statistically impossible to figure out which message was encrypted.
+    
+
+
+
+    
     \end{proof}
 \end{solution}
