@@ -63,6 +63,7 @@
 \newcommand{\setup}{\mathsf{Setup}}
 \newcommand{\lsetup}{\mathsf{Setup\text{-}Lossy}}
 
+\newcommand{\samplemat}{\mathsf{Sample\text{-}Dirac\text{-}Matrix}}
 \newcommand{\eval}{\mathsf{Eval}}
 \newcommand{\obf}{\mathsf{Obf}}
 
@@ -73,7 +74,8 @@
 \newcommand{\sd}{\mathsf{SD}}
 \newcommand{\swap}{\mathsf{swap}}
 \newcommand{\lwe}{\mathsf{LWE}_{n,m,q,\chi}}
-\newcommand{\sslwe}{\mathsf{ss\text{-}LWE}_{n,m,q,\chi}}
+\newcommand{\sslwe}[4]{\mathsf{ss\text{-}LWE}_{#1,#2,#3,#4}}
+\newcommand{\sslwec}{\sslwe{n}{m}{q}{\chi}}
 
 \newcommand{\unif}[1]{\mathsf{Unif}_{\left[-#1, #1\right]}}
 \newcommand{\func}[2]{\mathsf{Func}[#1, #2]}

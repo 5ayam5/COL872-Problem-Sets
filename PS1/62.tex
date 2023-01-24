@@ -1,8 +1,42 @@
 \begin{solution}{Question 6.1: Code Obfuscation}\label{ques:61}
     \begin{question}
-        Propose an attempt at obfuscation of $f_z$ using matrices and ideas developed in Question~\ref{ques:5}. Describe $\obf$ and $\eval$. Show that your scheme satisfies correctness. Prove security of your scheme, assuming $\sslwe$. Note that $t$ must be large for this proof to work. How large must $t$ be?
+        Propose an attempt at obfuscation of $f_z$ using matrices and ideas developed in Question~\ref{ques:5}. Describe $\obf$ and $\eval$. Show that your scheme satisfies correctness. Prove security of your scheme, assuming $\sslwec$. Note that $t$ must be large for this proof to work. How large must $t$ be?
     \end{question}
     \tcblower{}
     \begin{proof}
+        We use a similar sampling approach as done in Question~\ref{ques:5}. We choose $\chi$ and $d$ such that they form a valid solution to Question~\ref{ques:5}. For simplicity we first define the following function:
+        \begin{equation}
+            \samplemat_\chi(\bfA, \bfS, \bfD) = [\bfA | \bfS\cdot\bfA + \bfE + \bfD]\text{, where }\bfE \gets \chi^{n\times n}
+        \end{equation}
+        We define $\obf(f_z)$ as:
+        \begin{equation}
+            \begin{split}
+                \obf(f_z) &= \left(\bfB_{1,0}, \bfB_{1,1}, \bfB_{2,0}, \bfB_{2,1}, \ldots, \bfB_{t,0}, \bfB_{t,1}\right)\text{, where}\\
+                \bfB_{i,z_i} &= \samplemat_\chi(\bfA_{i,z_i}, \bfS, 0), 1\leq i < t\\
+                \bfB_{t,z_t} &= \samplemat_\chi(-\sum_{i=1}^{t-1}\bfA_{i,z_i}, \bfS, 0)\\
+                \bfB_{i,1-z_i} &= \samplemat_\chi(\bfA_{i,1-z_i}, \bfS, \bfD), i\in [t]\\
+                \bfS\gets\chi^{n\times n}&\text{ and }\forall (i, b)\in \left([t]\times\{0, 1\}\right)\setminus\{(t, z_t)\}: \bfA_{i,b}\gets \z_q^{n\times n}
+            \end{split}
+        \end{equation}
+        Now, $\eval(\obf(f_z), x)$ is defined as:
+        \begin{equation}
+            \eval(\obf(f_z), x) =
+            \begin{cases}
+                1&\text{if }\sum_{i\in[t]}(\bfB_{i,x_i})\text{ has \textit{only small entries}}\\
+                0&\text{otherwise}
+            \end{cases}
+        \end{equation}
+        For correctness, notice that when $x = z$ the sum is $[0 | \sum_{i\in[t]}\bfE_{i,z_i}]$. Since the noise is much smaller than $q^{0.75}$, it is guaranteed that the sum will have \textit{only small entries}. Therefore, $\eval(\obf(f_z), z) = 1$. Now, we need to show that the evaluation results in $0$ for all other points. Consider any $x\neq z$. Now, this number differs from the binary representation of $z$ at at least one index. Therefore, $\eval(\obf(f_z), x)$ will be of the form:
+        \begin{equation}
+            [\bfA' | \bfS\cdot\bfA' + \sum_{i\in[t]}\bfE_{i,x_i} + c\cdot\bfD], t\geq c > 0
+        \end{equation}
+        Now, using the same arguments as in Question~\ref{5}, we can show that at least one entry of this matrix is not small and therefore, $\eval(\obf(f_z), x) = 0$. Therefore, the proposed scheme satisfies correctness.\par~\par
+        We will now prove the security of our scheme by constructing computationally indistinguishable distributions until we arrive at a uniformly random distribution:
+        \begin{itemize}
+            \item Distribution $\calD_1$: Same as $\obf(f_z)$ but $\samplemat_\chi'$ is used where $\samplemat_\chi'(\bfA, \bfS, \mathbf{M}) = \samplemat_\chi(\bfA, \bfS, \bfD)$ (i.e., same $\bfD$ is used for all the samples). This is statistically indistinguishable from the distribution obtained from $\obf(f_z)$ since we are only changing the value of the constant matrix being added to the $2^\textsuperscript{nd}$ half of the matrix. As shown in Question~\ref{ques:5}, the distribution $\calD$ is computationally indistinguishable from a uniformly random matrix irrespective of the constant value that is added. Therefore, $\obf(f_z)$ is statistically indistinguishable from $\calD_1$.
+            \item Distribution $\calD_2$: We sample $\bfB_{i,b}$ uniformly randomly for $i\in[t],b\in\{0,1\}$ except when $(i,b) = (t,z_t)$. We set $\bfB_{t,z_t}$ the same way as it has been set in $\calD_1$. Now, from hardness of $\sslwe_{n}{(2t-1)n}{q}{\chi}$, we can claim that $\calD_1$ and $\calD_2$ are computationally indistinguishable since we can reduce both these distribution into distributions from the $\sslwe_{n}{(2t-1)n}{q}{\chi}$ problem.
+            \item Distribution $\calD_3$: We sample all $2t$ matrices uniformly randomly. Now, from \textbf{Fact 1} given in the assignment statement, we can say that $\calD_2$ and $\calD_3$ are statistically indistinguishable if $t$ is large enough. In this instance, $m = 2n$, and therefore, $t\geq n\cdot 2n\cdot\log q + n = 2n^2\cdot\log q + n = 2n^{2.5} + n$ (since $q = 2^{\sqrt{n}}$).
+        \end{itemize}
+        Therefore, we have shown that the matrix sampled from $\obf(f_z)$ is computationally indistinguishable from a uniformly random tuple of matrices. Therefore, our scheme $\obf$ is secure as well.
     \end{proof}
 \end{solution}

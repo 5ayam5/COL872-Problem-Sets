@@ -9,15 +9,16 @@
             \begin{split}
                 \calD = &\left(\bfB_0, \bfB_1, \ldots, \bfB_t\right)\\
                 \bfB_i = &\left[\bfA_i | \bfC_i\right], \forall i\in [t]\\
-                \bfC_i = &\bfA_i\cdot\bfS_i + \bfE_i + \bfD_i\\
-                &\bfA_i\gets\z_q^{n\times n}, \bfS_i\gets\chi^{n\times n}, \bfE_i\gets\chi^{n\times n}, \bfD_i\gets d^{n\times n}
+                \bfC_i = &\bfS\cdot\bfA_i + \bfE_i + \bfD\\
+                &\bfA_i\gets\z_q^{n\times n}, \bfS\gets\chi^{n\times n}, \bfE_i\gets\chi^{n\times n}, \bfD\gets d^{n\times n}
             \end{split}
         \end{equation}
         We now define $\chi$ and $d$ appropriately so that the required properties are satisfied. Consider any matrix $\bfB_p$ from the tuple sampled from $\calD$. This is made up of $\bfA_p$ and $\bfC_p$. We will now choose $d$ in such a way that exactly one of these two matrices can have \textit{only small entries}. Now, if $\bfA_p$ does not have \textit{only small entries}, any value of $d$ will work. Therefore, we consider the case when $\bfA_p$ is made up of \textit{only small entries}. Also, consider $\chi$ to be of the form $\unif{m}$ where we have to determine the value of $m$ (which has to be some power of $q$ for LWE to remain a hard computational problem, say $\alpha$). Also, WLOG, we assume $d$ to be positive and it lies between $0$ to $q/2$. We now consider the \textit{worst-case scenario} such that $d$ has to be the largest possible value:
         \begin{equation}
             \begin{split}
-                \sum_{k\in[n]}\left(a_{ik}\cdot s_{kj}\right) + e_{ij} + d &> q^{0.75}\\
-                \implies d &> q^{0.75} - e_{ij} - \sum_{k\in[n]}\left(a_{ik}\cdot s_{kj}\right)\\
+                \sum_{k\in[n]}\left(s_{ik}\cdot a_{kj}\right) + e_{ij} + d &> q^{0.75}\\
+                \implies d &> q^{0.75} - e_{ij} - \sum_{k\in[n]}\left(s_{ik}\cdot a_{kj}\right)\\
+                \text{Taking }e_{ij}, a_{kj}, s_{ik}\text{ to be the largest, }&\text{with appropriate signs}\\
                            &> q^{0.75} + m + n\times\left(q^{0.75}\cdot m\right)\\
                            &> q^{0.75} + q^\alpha + n\cdot q^{\alpha + 0.75}\\
                 \implies d &\geq 1 + q^{0.75}\times(1 + n\cdot q^\alpha) + q^\alpha\\
@@ -26,7 +27,13 @@
                            &\geq q^{\epsilon + \alpha + 0.75} = q^{\alpha' + 0.75}
             \end{split}
         \end{equation}
-        We replace $(n + 3)$ by $q^\epsilon$ since we are dealing with large numbers and $O(\log^2(q)) < O(q^\gamma)$. Now, since we assumed that $d$ has to be $\leq q/2 = O(q)$, therefore, $\alpha < \alpha' < 0.25$. Also, let $\alpha' + 0.75 = \beta$\par
-        % We now consider any subset $S = \{i_1, i_2, \ldots, i_r\} \subseteq [t]$. The subset sum of the tuple will be $\left[\bfA_{i_1} + \bfA_{i_2} + \cdots + \bfA_{i_r} | \bfC_{i_1} + \bfC_{i_2} + \cdots + \bfC_{i_r}\right]$. Now, if all of these $A_{i_j}$ have \textit{only small entries}, then using the above argument we are done (since $t\cdot d = o(q) < q - q^{0.75}$). Similarly, when $\sum_{j\in [r]} A_{i_j}$ does not have \textit{only small entries}, we are done as well. We now need to argue correctness for the case when not all of $A_{i_j}$ have \textit{only small entries} but $\sum_{j\in [r]} A_{i_j}$ has \textit{only small entries}.
+        We replace $(n + 3)$ by $q^\epsilon$ since we are dealing with large numbers and $O(\log^2(q)) < O(q^\gamma)$. Now, since we assumed that $d$ has to be $\leq q/2 = O(q)$, therefore, $\alpha < \alpha' < 0.25$. Also, let $\alpha' + 0.75 = \beta$. We cannot have $d = \Theta(q)$ since this can lead to the sum ending up in the range of \textit{only small entries} which is something that we do not want. Therefore, we conclude that $d = o(q)$.\par
+        This construction also satisfies the requirement for a subset sum since for any subset $T\subseteq [t]$, we can consider $\bfA' = \sum_{i\in T}\bfA_i$ and the noise $\sum_{i\in T}\bfE_i$ only increases by a factor of $t = \mathsf{poly}(n)$ which is much lesser than $d = \Theta(q^\beta)$.\par
+        We now show that this distribution is computationally indistinguishable from the uniform distribution over $\left(\z^{n\times 2n}\right)^t$. Notice that the distribution is equivalent to the following distribution:
+        \begin{equation}
+            \left\{\left(\bfA_i, \bfS\cdot\bfA_i + \bfE_i + \bfD\right)\right\}_{i\in [t]}
+        \end{equation}
+        Now, from the solution of Question~\ref{ques:31}, we know that the matrix-version of $\sslwec$ is also a hard computational problem. Our distribution can be reduced to matrix version of $\sslwe{n}{tm}{q}{\chi}$ by just appending the $t$ matrices column-wise. The addition of $\bfD$ does not affect the reduction since $\bfD$ is just a constant and a constant being added to a uniformly random number is also uniformly random. Therefore, $\calD$ is computationally indistinguishable from the uniform distribution and it also ensures that the event with a subset sum having \textit{only small entries} has a probability of $0$.\par
+        Therefore, we have shown how to sample $\calD$ with $\chi = \unif{q^\alpha}$ and $d = q^{0.75+\alpha+\epsilon}$ such that $0 < \alpha < \alpha + \epsilon < 0.25$.
     \end{proof}
 \end{solution}
