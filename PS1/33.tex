@@ -4,6 +4,7 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-        As Small Secrets LWE and normal LWE are equivalent to each other,if $m=n$, the small secrets LWE will maintain statistical indistinguishability. Additionally, no new information can be obtained by an unbounded adversary from the solution of $x^TA = y$, where $(A, y)$ was the tuple received since $x$ either corresponds to $bA^{-1}$ or $s^T+eA^{-1}$ which are both completely random.
+    
+        When we calculate the randomness of both the distributions, for $\calD_2$, randomness is $(nm+nm)\log q$, and for $\calD_1$, the randomness comes out to be $nm \log q + (n^2 +nm)\log B$ where $B$ depends on the range of $\chi$. If the range of $\chi$ is less than $\sqrt{q}$, then both the distributions have different randomness and thus are statistically far-apart. So, in general, nothing conclusive can be said about statistical indistinguishability of Small Secrets LWE - Matrix Version as the indistinguishability can change depending upon the range of $\chi$.
     \end{proof}
 \end{solution}
