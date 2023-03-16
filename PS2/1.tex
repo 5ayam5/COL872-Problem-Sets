@@ -1,8 +1,23 @@
 \begin{solution}{Question 1: Doubly Efficient Interactive Proofs}\label{ques:1}
     \begin{question}
-    quess
+    Give a doubly-efficient protocol for the disjoint sets problem where the verifier runs in time $\tilde{O}(n)$, and the prover runs in time $\tilde{O}(n^2)$,
     \end{question}
     \tcblower{}
     \begin{proof}
+    We have two set of sets: $S = \{S_i\}_{i\in [n]}$ and $T = \{T_i\}_{i\in n}$, and each $S_i , T_i \subseteq [d]$.
+
+    Numbers till n can be represented using \textbf{log n} bits. So we will try to represent the problem as a polynomial in 2log n bits(log n bits each for S and T). To do this,
+
+    For set of sets S, for each $j \in [d]$ which can exist in a set, we can create a Boolean algebra expression which takes as input the log n bits which create a number \textbf{i} and outputs 1 if \textbf{$j \in S_i$} and 0 otherwise. Let us name this expression as $S^j$. Similarly we can create boolean algebra expression $T^j$.
+    
+    Now taking a \textbf{NAND} of these two expression ($1-S^jT^j$), for the input bits $I = i_1 i_2...i_{log n}$ and $K = k_1 k_2...k_{log n}$, we will get an output of 0 if the element j is present in both the sets $S_i$ and $T_k$ and 1 otherwise. In this way we can check for one element. Now we can multiply all the NAND expressions and the resulting expression $$ f(I,K)= \prod_{j=1}^d (1-S^j(I)T^j(K))$$ will return 0 if any one of the numbers in set [d] is present in both of $S_i$ and $T_k$ i.e.,$S_i \cap T_k \neq \phi$ or the intersection of the sets $S_i$ and $T_k $ is empty and return 1 otherwise. 
+
+    Now to get the answer, $\Delta$, we can simply sum up the outputs of $f(I,K)$ over all possible values of $I$ and $K$.
+
+    \[\Delta = \sum_{I,K\in \{0,1\}^{log n}} f(I,K)\]
+
+    Now we can apply the sum check protocol over this. Suppose the value of $\Delta$ is p. Now the prover will prove that $\delta = p$ to the verifier. as the total number of variables is 2log n, We will have 2log n rounds in the sum check protocol. In each iteration of the protocol, the verifier has to evaluate a univariate polynomial of degree atmost \textbf{d} at each iteration. which will take O(d) iterations via the Horner's rule. So the expected running time of the Verifier is O(d * 2log n) = O($log^3$ n) as d= $log^2$ n which can be represented as $\tilde{O}(1)$(as poly logarithmic factors are omitted).
+
+    Now we will find the running time of the prover. In the $j^{th}$ sum, we have (1+deg(g))$2^{v-j}$ terms where g is the univariate polynomial formed. As there are 2log n rounds, for a v round protocol, the prover has to do $ \sum_{j=1}^{2log n} (1+deg(g))2^{v-j}$ evaluations. As each univariate polynomial will have a degree of atmost d, this comes out to be O($2^vd$) evaluations. For this problem we have $v = 2log$ n, So we will have O($n^2log^2$ n) evaluations and we have know that each evaluation takes O($log^2$ n) time for a O(log n) variate polynomial, so the total time for the prover will be O($n^2log^4$ n) which is $\tilde{O}(n^2)$.
     \end{proof}
 \end{solution}
