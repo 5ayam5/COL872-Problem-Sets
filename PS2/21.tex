@@ -1,8 +1,27 @@
-\begin{solution}{HVZK PoK for DDH}\label{ques:1}
+\begin{solution}{HVZK PoK for DDH}\label{ques:2.2}
     \begin{question}
-    quess
+    Consider the following language:
+    \begin{equation}
+        \lddh = \{(g,h,u,v): \exists a \in \z s.t. u = g^a , v = h^a
+    \end{equation}
+    Construct an honest-verifier zero-knowledge proof-of-knowledge protocol for $\lddh$. The protocol must have perfect completeness, the knowledge error must be $1/q$, and it should satisfy the honest-verifier zero-knowledge property.
     \end{question}
     \tcblower{}
     \begin{proof}
+    In an honest verifier setting, the zero-knowledge, proof-of-knowledge can be defined as follows: 
+    \begin{itemize}
+        \item Consider an honest verifier $\calV$ and a prover $\calP$.
+        \item \textbf{Common input:} $g, u, h, v$ where all of them are group elements.
+        \item \textbf{Prover's private input:} $a$ s.t. $u = g^a , v = h^a$
+        \item \textbf{Claim to prove:} Prover knows a
+    \end{itemize}
+
+    The protocol:
+    \begin{enumerate}
+        \item \textbf{P:} prover picks random $t_1, t_2, t_3$ and sends $x = g^{t_1}$, $y = h^{t_2}$ and $z = (g \cdot h)^{t_3}$ to the verifier
+        \item \textbf{V:} verifier sends uniformly random $c_1, c_2, c_3$ with respect to the pairs $(g,u),(h,v),(g \cdot h,u \cdot v)$
+        \item \textbf{P:} prover calculates $w_1 = t_1 +c_1\cdot a$, $w_2 = t_2 +c_2\cdot a$ and $w_3 = t_3 +c_3\cdot a$ and sends $w_1, w_2, w_3$ to the verifier
+        \item \textbf{V:} verifier checks if $x \cdot u^{c_1} = g^{w_1}$, $y \cdot v^{c_2} = h^{w_2}$ and $z \cdot (u \cdot v)^{c_3} = (g \cdot h)^{w_3}$
+    \end{enumerate}
     \end{proof}
 \end{solution}
