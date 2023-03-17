@@ -1,8 +1,35 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 7.1}\label{ques:71}
     \begin{question}
-    quess
+        Consider the partial measurement of the first qubit in an $n$ qubit system. Express this partial measurement is as projective measurement.
     \end{question}
     \tcblower{}
     \begin{proof}
+        Consider the partial measurement,
+        \begin{equation}
+            \begin{split}
+                \mathbf{P}_0 = \left(\ket{0}\bra{0}\right)\otimes \mathbf{I}_{n-1}\\
+                \mathbf{P}_1 = \left(\ket{1}\bra{1}\right)\otimes \mathbf{I}_{n-1}
+            \end{split}
+        \end{equation}
+        This $\{\mathbf{P}_i\}_{i\in [2]}$ is the projective measurement that is equivalent to the partial measurement of the first qubit in an $n$ qubit system. Clearly, it satisfies the idempotence property and $\mathbf{P}_0 + \mathbf{P}_1 = \mathbf{I}_n$. Consider any pure state $\ket{\psi} = \alpha_0\ket{0}\ket{\phi_0} + \alpha_1\ket{1}\ket{\phi_1}$. Now, applying $\mathbf{P}_b$ on $\ket{\psi}$ gives,
+        \begin{equation}
+            \begin{split}
+                \prob{\text{first qubit} = b} &= \braket{\psi | \mathbf{P}_b | \psi}\\
+                                              &= \alpha_0^2\braket{\phi_0\braket{0 | \mathbf{P}_b | 0}\phi_0} + \alpha_1^2\braket{\phi_1\braket{1 | \mathbf{P}_b | 1}\phi_1}\\
+                                              &= \alpha_b^2\braket{\phi_b | \phi_b}\\
+                                              &= \alpha_b^2\\
+            \end{split}
+        \end{equation}
+        The collapsed states are,
+        \begin{equation}
+            \begin{split}
+                \ket{\psi'_b} &= \frac{\mathbf{P}_b\ket{\psi}}{\sqrt{\braket{\psi | \mathbf{P}_b | \psi}}}\\
+                              &= \frac{\left(\left(\ket{b}\bra{b}\right)\otimes \mathbf{I}_{n-1}\right)\left(\alpha_0\ket{0}\otimes\ket{\psi_0} + \alpha_1\ket{1}\otimes\ket{\psi_1}\right)}{\alpha_b}\\
+                              &= \frac{1}{\alpha_b}\cdot\left(\left(\alpha_0\ket{b}\bra{b}\ket{0}\right)\otimes\ket{\psi_0} + \left(\alpha_1\ket{b}\bra{b}\ket{1}\right)\otimes\ket{\psi_1}\right)\\
+                              &= \frac{1}{\alpha_b}\cdot\ket{b}\ket{\phi_b}\\
+                              &= \ket{b}\ket{\phi_b}
+            \end{split}
+        \end{equation}
+        These are exactly the same as the partial measurements. Therefore, the proposed $\{\mathbf{P}_i\}_{i\in [2]}$ is the projective measurement that corresponds to the partial measurement of the first qubit in an $n$ qubit system.
     \end{proof}
 \end{solution}
