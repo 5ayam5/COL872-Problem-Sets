@@ -1,8 +1,17 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 7.2}\label{ques:72}
     \begin{question}
-    quess
+        The measurements discussed in class have the following (collapsing) property: once the measurement is applied to an $n$-qubit system, the state collapses to one of $\{\ket{x}\}_{x\in\{0, 1\}^n}$, and any further measurements produce the same measurement. Does this property hold true for projective measurements?
     \end{question}
     \tcblower{}
     \begin{proof}
+        From the idempotence property of $\mathcal{P}$, we get that any further measurements will produce the same measurement. However, it need not be the case that the state will collapse to one of $\{\ket{x}\}_{x\in\{0, 1\}^n}$. For instance, consider the following projective measurement on $1$ qubit system,
+        \begin{equation}
+            \mathbf{P}_0 = \ket{+}\bra{+}, \mathbf{P}_1 = \ket{-}\bra{-}
+        \end{equation}
+        This satisfies the idempotence property and the sum of the two projections is equal to $\mathbf{I}_1$. However, consider the collapsed state on input $\ket{0}$ with $\mathbf{P}_0$,
+        \begin{equation}
+            \frac{\mathbf{P}_0\ket{0}}{\sqrt{\braket{0|\mathbf{P}_0|0}}} = \frac{\frac{1}{\sqrt{2}}\cdot\ket{+}}{\frac{1}{\sqrt{2}}} = \ket{+}
+        \end{equation}
+        This is neither $\ket{0}$ nor $\ket{1}$. Therefore, the state does not necessarily collapse to one of the possible bit-strings in case of a projective measurement.
     \end{proof}
 \end{solution}
