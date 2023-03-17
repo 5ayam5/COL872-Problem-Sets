@@ -1,4 +1,4 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 6.1}\label{ques:61}
     \begin{question}
         Let $\rho$ be the density matrix for a mixed state over $n$ qubits. In class, we saw that there exists a pure state $\ket{\psi}$ over $2n$ qubits such that measuring the last $n$ qubits results in the density matrix $\rho$. Using Schmidt decomposition, prove that if $\ket{\psi_1}$ and $\ket{\psi_2}$ are two purifications of $\rho$, then there exists a unitary matrix $\mathbf{U}$ acting over $n$ qubits such that $\ket{\psi_2} = (\mathbf{I}_n \otimes \mathbf{U}) \ket{\psi_1}$. Here $\mathbf{I}_n$ is the identity operation over the first $n$ qubits.
     \end{question}
@@ -19,7 +19,7 @@
             \end{split}
         \end{equation}
         Since $\{\ket{u_{1i}}\}_i$ and $\{\ket{u_{2i}}\}_i$ are orthonormal vectors, the two multi-sets $\{\lambda_{1i}\}_i$ and $\{\lambda_{2i}\}_i$ should be the same and they form the eigenvalues of $\rho$. Therefore, we can assume the ordering of $\{\ket{u_{1i}}\}_i$ and $\{\ket{u_{2i}}\}_i$ such that $\lambda_{1i} = \lambda_{2i} = \lambda_i$ (direct equality holds since $\lambda_{bi}$ are guaranteed to be positive by Schmidt decomposition).\par
-        Now, we represent $\ket{\psi_2}$ such that the first $n$ qubits have the same orthonormal vectors as $\ket{\psi_1}$. It is guaranteed that $\ket{u_{1i}} = \ket{u_{2i}}$ if the multiplicity of $\lambda_i$ is $1$. Consider $\lambda_p$ such that it has a multiplicity $k > 1$. The two sets of eigenvectors corresponding to this eigenvalue are $S_1 = \{\ket{u_{1i}} | \lambda_i = \lambda_p\}$ and $S_2 = \{\ket{u_{2i}} | \lambda_i = \lambda_p\}$. Now, these two sets span the same subspace of $n$ qubits. Therefore, we can write $\sum_{\ket{u_{2i}}\in S_2}\ket{u_{2i}}\ket{v_{2i}}$ as,
+        Now, we represent $\ket{\psi_2}$ such that the first $n$ qubits have the same orthonormal vectors as $\ket{\psi_1}$. It is guaranteed that $\ket{u_{1i}} = \ket{u_{2i}}$ if the multiplicity of $\lambda_i^2$ is $1$. Consider $\lambda_p^2$ such that it has a multiplicity $k > 1$. The two sets of eigenvectors corresponding to this eigenvalue are $S_1 = \{\ket{u_{1i}} | \lambda_i = \lambda_p\}$ and $S_2 = \{\ket{u_{2i}} | \lambda_i = \lambda_p\}$. Now, these two sets span the same subspace of $n$ qubits. Therefore, we can write $\sum_{\ket{u_{2i}}\in S_2}\ket{u_{2i}}\ket{v_{2i}}$ as,
         \begin{equation}
             \begin{split}
                 \sum_{\ket{u_{2i}}\in S_2}\ket{u_{2i}}\ket{v_{2i}} &= \sum_{\ket{u_{2i}}\in S_2}\left(\sum_{\ket{u_{1j}}\in S_1}\alpha_{ij}\ket{u_{1j}}\right)\ket{v_{2i}}\\
@@ -28,7 +28,7 @@
                 &= \sum_{\ket{u_{1j}}\in S_1}\ket{u_{1j}}\ket{v_{2j}'}
             \end{split}
         \end{equation}
-        Note that $\{v_{2j}' | \lambda_j = \lambda_p\}$ is an orthonormal set since $S_2$ is also an orthonormal set. Therefore, $\ket{\psi_2}$ can be written as,
+        Note that $\{\ket{v_{2j}'} | \lambda_j = \lambda_p\}$ is an orthonormal set since $S_2$ is also an orthonormal set. Therefore, $\ket{\psi_2}$ can be written as,
         \begin{equation}
             \ket{\psi_2} = \sum_i\lambda_i\ket{u_{1i}}\ket{v_{2i}'} = \sum_i\lambda_i\ket{u_i}\ket{v_{2i}'}
         \end{equation}

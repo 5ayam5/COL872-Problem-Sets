@@ -1,8 +1,19 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 6.2}\label{ques:62}
     \begin{question}
-    quess
+        Let $\rho_1$, $\rho_2$ be two density matrices, corresponding to mixed states over $n$ qubits. Show that the following two statements are equivalent:
+        \begin{itemize}
+            \item $\rho_1$ and $\rho_2$ have the same set of eigenvalues (counting multiplicities).
+            \item There exists a pure state $\ket{\psi}$ over $2n$ qubits such that when the first $n$ qubits are measured, the state of the remaining qubits is described by density matrix $\rho_2$. Similarly, when the last $n$ qubits are measured, the state of the first $n$ qubits is $\rho_1$.
+        \end{itemize}
     \end{question}
     \tcblower{}
     \begin{proof}
+        ($\implies$) Let the eigenvalues of $\rho_1$ and $\rho_2$ be $\{\lambda_i^2\}_i$ and the eigenvectors be $\{\ket{u_i}\}_i$ and $\{\ket{v_i}\}_i$ respectively. Now, consider the pure state,
+        \begin{equation}
+            \ket{\psi} = \sum_i\lambda_i\ket{u_i}\ket{v_i}
+        \end{equation}
+        Therefore, on measuring the first $n$ qubits, we get $\rho_2 = \sum_i\lambda_i^2\ket{v_i}\bra{v_i}$ and on measuring the last $n$ qubits, we get $\rho_1 = \sum_i\lambda_i^2\ket{u_i}\bra{u_i}$. Therefore, we have shown the existence of a pure state $\ket{\psi}$ over $2n$ qubits which yields $\rho_1$ on measuring the last $n$ qubits and $\rho_2$ on measuring the first $n$ qubits.
+
+        ($\impliedby$) Using Schmidt decomposition, we can represent $\ket{\psi}$ as $\sum_i\lambda_i\ket{u_i}\bra{v_i}$. Now, on measuring the last $n$ qubits, we get the density matrix $\rho_1 = \sum_i\lambda_i^2\ket{u_i}\bra{u_i}$ and on measuring the first $n$ qubits, we get the density matrix as $\rho_2 = \sum_i\lambda_i\ket{v_i}\bra{v_i}$. Now, since $\{\ket{u_i}\}_i$ and $\{\ket{v_i}\}_i$ are both orthonormal sets, the eigenvalues of $\rho_1$ and $\rho_2$ are both $\{\lambda_i\}_i$ (multi-set). Thus, $\rho_1$ and $\rho_2$ have the same set of eigenvalues.
     \end{proof}
 \end{solution}
