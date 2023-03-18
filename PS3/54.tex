@@ -4,5 +4,15 @@
     \end{question}
     \tcblower{}
     \begin{proof}
+        Consider the following quantum public-key encryption $\calE_q$ (assuming that we there exists a classical public-key encryption scheme $\calE = (\keygen_\calE, \enc_\calE, \dec_\calE)$,
+        \begin{equation}
+            \begin{split}
+                \keygen_{\calE_q}(1^m) &= \keygen_\calE(1^{2m})\\
+                \enc_{\calE_q}(pk, \ket{\psi_1}\ket{\psi_2}\cdots\ket{\psi_m}) &= (\enc_\calE(pk, r_1||r_2||\cdots||r_m),\\
+                &\enc(r_1, \ket{\psi_1})\otimes\enc(r_2, \ket{\psi_2})\otimes\cdots\otimes\enc(r_m, \ket{\psi_m}))\\
+                &(\forall i\in[m]: r_i\gets \{0, 1\}^2)
+            \end{split}
+        \end{equation}
+        We encrypt the random key using classical public-key encryption and then use this key to encrypt the qubits via the symmetric key encryption proposed in the question.
     \end{proof}
 \end{solution}
