@@ -15,7 +15,7 @@
         \begin{equation}
             \begin{split}
                 \prob{\text{first qubit} = b} &= \braket{\psi | \mathbf{P}_b | \psi}\\
-                                              &= \alpha_0^2\braket{\phi_0\braket{0 | \mathbf{P}_b | 0}\phi_0} + \alpha_1^2\braket{\phi_1\braket{1 | \mathbf{P}_b | 1}\phi_1}\\
+                                              &= \alpha_0^2\braket{\phi_0|\braket{0 | \mathbf{P}_b | 0}|\phi_0} + \alpha_1^2\braket{\phi_1|\braket{1 | \mathbf{P}_b | 1}|\phi_1}\\
                                               &= \alpha_b^2\braket{\phi_b | \phi_b}\\
                                               &= \alpha_b^2\\
             \end{split}
@@ -26,7 +26,7 @@
                 \ket{\psi'_b} &= \frac{\mathbf{P}_b\ket{\psi}}{\sqrt{\braket{\psi | \mathbf{P}_b | \psi}}}\\
                               &= \frac{\left(\left(\ket{b}\bra{b}\right)\otimes \mathbf{I}_{n-1}\right)\left(\alpha_0\ket{0}\otimes\ket{\psi_0} + \alpha_1\ket{1}\otimes\ket{\psi_1}\right)}{\alpha_b}\\
                               &= \frac{1}{\alpha_b}\cdot\left(\left(\alpha_0\ket{b}\bra{b}\ket{0}\right)\otimes\ket{\psi_0} + \left(\alpha_1\ket{b}\bra{b}\ket{1}\right)\otimes\ket{\psi_1}\right)\\
-                              &= \frac{1}{\alpha_b}\cdot\ket{b}\ket{\phi_b}\\
+                              &= \frac{1}{\alpha_b}\cdot\alpha_b\ket{b}\ket{\phi_b}\\
                               &= \ket{b}\ket{\phi_b}
             \end{split}
         \end{equation}

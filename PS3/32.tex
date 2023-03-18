@@ -5,8 +5,8 @@
     \tcblower{}
     \begin{proof}
     Circuit C has m measurements. Let's start with the first measurement. Suppose it happens on the qubit \#q.\par
-    We initialize the $n+1^{th}$ qubit in the state $\ket{0}$. Now, instead of applying the first measurement, we can replace the measurement gate with a CNOT gate which has the control qubit as \#q and target qubit as \#(n+1). In this way the we can  Finally we can apply the measurement to the $n+1^{th}$ qubit at the end as this qubit collapses after measurement and is not needed in the circuit at any time. This is the correct simulataion of the original circuit at that time.\par
-    If there was something to be done with the qubit \#q after it was measured, We can modify the circuit to include a controlled U gate which takes as control the qubit \#q with targets as the qubits which were getting affected according to the measurement of qubit \#q. In this way we have reduced 1 measurement using 1 additional qubit.\par
-    This process can be replaced m times to get a Circuit with n+m qubits which does not have any intermediate measurements.
+    We initialize the $n+1^{th}$ qubit in the state $\ket{0}$. Now, instead of applying the first measurement, we can replace the measurement gate with a CNOT gate which has the control qubit as \#q and target qubit as \#(n+1) and measure this target qubit. Now we can move the measurement of the $n+1^{th}$ qubit at the end as this qubit collapses after measurement and is not needed in the circuit at any time. This is the correct simulataion of the original circuit at that time.\par
+    If there was something to be done with the result of measurement of qubit \#q, we can modify the circuit to include a controlled U gate which takes as control the qubit \#q with targets as the qubits which were getting affected according to the measurement of qubit \#q. In this way we have reduced 1 measurement using 1 additional qubit.\par
+    This process can be replaced m times to get a circuit with n+m qubits which does not have any intermediate measurements.
     \end{proof}
 \end{solution}
