@@ -1,8 +1,26 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 7.3}\label{ques:73}
     \begin{question}
-    quess
+        Let $\mathcal{M} = \{\mathbf{M}_i\}_{i\in[t]}$ be a POVM applied to an $n$ qubit pure state $\ket{\psi}$. Show that there exists a projective measurement $\mathcal{P} = \{\mathbf{P}_i\}_{i\in[t]}$ on a larger system over $n + \log t$ qubits, and a pure state $\ket{\psi'}$ on $n + \log t$ qubits such that $\braket{\psi|\mathbf{M}_i|\psi} = \braket{\psi'|\mathbf{P}_i|\psi'}$ for all $i\in[t]$.
     \end{question}
     \tcblower{}
     \begin{proof}
+        We first show that each $\mathbf{M}_i$ can be represented as a matrix of the form $|\alpha_i|^2\mathbf{V}_i^\dagger\cdot\mathbf{V}_i$ for some matrix $\mathbf{V}_i$. Since all $\mathbf{M}_i$ are Hermitian and psd, we can represent them as $|\alpha_i|^2\sum_j\lambda_j\ket{u_j}\bra{u_j}$ such that all $\ket{u_j}$ are orthonormal vectors and thus the previous representation follows (where $|\alpha_i|^2 = \mathsf{Tr}(\mathbf{M}_i)$). Now consider the following state $\ket{\psi'}$,
+        \begin{equation}
+            \ket{\psi'} = \sum_{i\in[t]}\alpha_i\mathbf{V}_i\ket{\psi}\ket{i}
+        \end{equation}
     \end{proof}
+    Now, consider the following projective measurement $\mathcal{P}$,
+    \begin{equation}
+        \mathbf{P}_i = \mathbf{I}_n\otimes(\ket{i}\bra{i})
+    \end{equation}
+    Consider the probability of getting output $i$,
+    \begin{equation}
+        \begin{split}
+            \braket{\psi'|\mathbf{P}_i|\psi'} &= \sum_{j\in[t]}\braket{\psi|\mathbf{V}_j^\dagger\alpha_j^*|\mathbf{I}_n|\alpha_j\mathbf{V}_j|\psi}\cdot\braket{j|(\ket{i}\bra{i})|j}\\
+                                              &= \braket{\psi|\mathbf{V}_i^\dagger\alpha_i^*|\mathbf{I}_n|\alpha_i\mathbf{V}_i|\psi}\\
+                                              &= \braket{\psi||\alpha_i|^2\mathbf{V}_i^\dagger\mathbf{V}_i|\psi}\\
+                                              &= \braket{\psi|\mathbf{M}_i|\psi}
+        \end{split}
+    \end{equation}
+    Therefore, the probability of getting output $i$ via the projective and the POVM is the same. Additionally, we require $\log t$ registers to store the values of $i$. Therefore, a POVM is a projective measurement on a larger space.
 \end{solution}
