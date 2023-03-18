@@ -1,8 +1,42 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 2.2}\label{ques:22}
     \begin{question}
-    quess
+    Show that, for any $f : \{0,1\}^n \rightarrow \{0,1\}$, $CP_f$ can be implemented using $U_f$.
     \end{question}
     \tcblower{}
     \begin{proof}
+
+    the implementation of $CP_f$ using $U_f$ is ans follows:
+
+     \begin{quantikz}
+    \lstick{$\ket{x}$} & \qw & \gate[2]{U_f} & \qw &\qw\\
+    \lstick{$\ket{y}$}& \gate{H} & \qw& \gate{H}&\qw
+    \end{quantikz}
+
+    If the initial value of y is 0, after Hadamard, the qubit becomes $\ket{+}$. Applying $U_f$ on $\ket{x}\ket{+}$,
+
+    \begin{align*}
+        U_f(\ket{x}\ket{+}) & = \frac{1}{\sqrt{2}} (U_f\ket{x}\ket{0} + U_f\ket{x}\ket{1})\\
+        & = \frac{1}{\sqrt{2}}(\ket{x}\ket{f(x)} + \ket{x}\ket{1\oplus f(x)}\\
+        & = \ket{x}\ket{+} \text{      ,for any value of f(x)}\\
+    \end{align*}
+
+    After applying Hadamard again, we get $\ket{x}\ket{0}$ which is equal to $CP_f\ket{x}\ket{0}$.
+
+    If the initial value of y is 1, after Hadamard, the qubit becomes $\ket{1}$. Applying $U_f$ on $\ket{x}\ket{1}$,
+
+    \begin{align*}
+        U_f(\ket{x}\ket{1}) & = \frac{1}{\sqrt{2}} (U_f\ket{x}\ket{0} 1 U_f\ket{x}\ket{1})\\
+        & = \frac{1}{\sqrt{2}}(\ket{x}\ket{f(x)} - \ket{x}\ket{1\oplus f(x)}\\
+        & = \begin{cases}
+            \ket{x}\ket{-} \text{ if } f(x) = 0\\
+            -\ket{x}\ket{-} \text{ if } f(x) = 1\\
+            \end{cases}\\
+        & = CP_f\ket{x}\ket{-}
+    \end{align*}
+
+    After applying Hadamard again, we get  $CP_f\ket{x}\ket{1}$.
+
+    Thus, using above circuit $CP_f$ can be implemented using $U_f$.
+    
     \end{proof}
 \end{solution}

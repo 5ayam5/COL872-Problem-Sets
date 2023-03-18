@@ -1,8 +1,29 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 5.2}\label{ques:5.2}
     \begin{question}
-    quess
+    Show that any density matrix $\rho \in \C^{2\times 2}$ can be expressed as a linear combination of $\bfI, \bfX, \bfZ, \bfX \cdot \bfZ$.
     \end{question}
     \tcblower{}
     \begin{proof}
+    The matrix representations of $\bfI, \bfX, \bfZ, \bfX \cdot \bfZ$ are as follows:
+    \begin{enumerate}
+        \item $\bfI$ : $\begin{bmatrix}
+                        1 & 0 \\
+                        0 & 1
+                        \end{bmatrix}$
+        \item $\bfX$ : $\begin{bmatrix}
+                        0 & 1 \\
+                        1 & 0
+                        \end{bmatrix}$
+        \item $\bfZ$ : $\begin{bmatrix}
+                        1 & 0 \\
+                        0 & -1
+                        \end{bmatrix}$
+        \item $\bfX \cdot \bfZ$ : $\begin{bmatrix}
+                        0 & -1 \\
+                        1 & 0
+                        \end{bmatrix}$
+    \end{enumerate}
+
+    It can be clearly seen that $\{\bfI, \bfX, \bfZ, \bfX \cdot \bfZ\}$ spans the entire $\C^{2\times2}$ matrix space (We can obtain $e_{00},e_{01},e_{10},e_{11}$ by simple addition, subtraction). Hence any density matrix $\rho \in C^{2\times2}$ can be expressed as a linear combination of $\bfI, \bfX, \bfZ, \bfX \cdot \bfZ$
     \end{proof}
 \end{solution}

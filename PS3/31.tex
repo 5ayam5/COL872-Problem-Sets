@@ -1,8 +1,22 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 3.1}\label{ques:31}
     \begin{question}
-    quess
+    Construct a single qubit quantum circuit such that it has identical output on $\ket{0}$ and $\ket{1}$, but different output on $\ket{+}$.
+
     \end{question}
     \tcblower{}
     \begin{proof}
+
+    Currently we do not know any unitary which gives same output on $\ket{0}$ and $\ket{1}$, so to achieve the objective, we will need to apply measurement. So we can create a circuit like 
+    \begin{center}
+    \begin{quantikz}
+    \qw & \gate{H} &\qw& \meter{}& \qw
+    \end{quantikz}
+    \end{center}
+Now, when we put $\ket{0}$ as input, we get $\ket{+}$ from the Hadamard and we get $\ket{-}$ on inputting $\ket{1}$. As both of them have the same density matrix, we will get the same measurement from both of them.
+
+While if we input $\ket{+}$ in the circuit, Hadamard gives us $\ket{0}$ as output which has a different density matrix from $\ket{+}$ and $\ket{-}$ and thus will give different measurement.
+
+In this way we get the required circuit.
+    
     \end{proof}
 \end{solution}
