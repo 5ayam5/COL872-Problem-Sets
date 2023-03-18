@@ -6,8 +6,42 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-
-
+    The outputs for different values for M are as follows:
+    \begin{enumerate}
+        \item $\bfM = \bfI$
+        \begin{equation}
+            \begin{split}
+                f(\bfI) &=\frac{1}{4}(\bfI + \bfX \cdot \bfI \cdot \bfX + \bfZ \cdot \bfI \cdot \bfZ+ \bfX \cdot \bfZ \cdot \bfI \cdot \bfZ \cdot \bfX)\\
+                &=\frac{1}{4}(\bfI+\bfI+\bfI+\bfI)\\
+                &=\bfI
+            \end{split}
+        \end{equation}
+        \item $\bfM = \bfX$
+        \begin{equation}
+            \begin{split}
+                f(\bfX) &=\frac{1}{4}(\bfX + \bfX \cdot \bfX \cdot \bfX + \bfZ \cdot \bfX \cdot \bfZ+ \bfX \cdot \bfZ \cdot \bfX \cdot \bfZ \cdot \bfX)\\
+                &=\frac{1}{4}(\bfX + \bfX - \bfX -\bfX)\\
+                &=\mathbf{0}
+            \end{split}
+        \end{equation}
+        \item $\bfM = \bfZ$
+        \begin{equation}
+            \begin{split}
+                f(\bfZ) &=\frac{1}{4}(\bfZ + \bfX \cdot \bfZ \cdot \bfX + \bfZ \cdot \bfZ \cdot \bfZ+ \bfX \cdot \bfZ \cdot \bfZ \cdot \bfZ \cdot \bfX)\\
+                &=\frac{1}{4}(\bfZ - \bfZ + \bfZ- \bfZ)\\
+                &=\mathbf{0}
+            \end{split}
+        \end{equation}
+        \item $\bfM = \bfX \cdot \bfZ$
+        \begin{equation}
+            \begin{split}
+                f(\bfX\cdot\bfZ) &=\frac{1}{4}(\bfX \cdot \bfZ + \bfX \cdot \bfX \cdot \bfZ \cdot \bfX + \bfZ \cdot \bfX \cdot \bfZ \cdot \bfZ+ \bfX \cdot (\bfZ \cdot \bfX \cdot \bfZ) \cdot \bfZ \cdot \bfX)\\
+                &=\frac{1}{4}(\bfX \cdot \bfZ + \bfX \cdot (-\bfZ) + (-\bfX) \cdot \bfZ+ \bfX \cdot (-\bfX \cdot \bfZ\cdot \bfX))\\
+                &=\frac{1}{4}(\bfX \cdot \bfZ - \bfX \cdot \bfZ -\bfX \cdot \bfZ+ \bfX \cdot \bfZ)\\
+                &=\mathbf{0}
+            \end{split}
+        \end{equation}
+    \end{enumerate}
     
     \end{proof}
 \end{solution}
