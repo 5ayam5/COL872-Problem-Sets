@@ -1,8 +1,25 @@
 \begin{solution}{Question 1}\label{ques:1}
     \begin{question}
-    quess
+    Let $U = A \cdot X \cdot B \cdot X \cdot C$ where $I = A \cdot B \cdot C$. Use this representation to construct a ‘controlled U’ gate using CNOT, and gates implementing the unitaries A, B, C.
     \end{question}
     \tcblower{}
     \begin{proof}
+    One implementation of controlled U gate using CNOT and the gates A, B and C is as follows:
+    \begin{center}
+        \begin{quantikz}[thin lines, slice all]
+    \lstick{$\ket{\psi_0}$} & \qw & \ctrl{1} & \qw & \ctrl{1} & \qw & \qw \\
+    \lstick{$\ket{\psi_1}$} & \gate{C} & \targ{} & \gate{B} & \targ{} &\gate{A} &\qw 
+    \end{quantikz}
+    
+    \end{center}
+
+    To show that this works as Controlled U, We will show the Output in Second Register for Values 0 and 1 of $\ket{\psi_0}$.
+
+    When $\psi_0$ has a value of 0, at line 1, lower register has a value of $C\ket{\psi_1}$, After the CNOT, as the control is 0, the value remains unchanged at 2, At 3, the value of register becomes $B \cdot C\ket{\psi_1}$ which remains unchanged at 4 and finally at 5, the value becomes $A \cdot B \cdot C\ket{\psi_1}$. As $A \cdot B \cdot C = I$, the value becomes $I \cdot \ket{\psi_1} = \ket{\psi_1}$.\\
+
+    When $\psi_0$ has a value of 1, at line 1, lower register has a value of $C\ket{\psi_1}$, After the CNOT, as the control is 1, the value will change to $X \cdot C\ket{\psi_1}$ at point 2, At 3, the value of register becomes $B \cdot X \cdot C\ket{\psi_1}$ which changes to  $X \cdot B \cdot X \cdot C\ket{\psi_1}$ at 4 via CNOT and finally at 5, the value becomes $A \cdot X \cdot B \cdot X \cdot C\ket{\psi_1}$. As $A \cdot X \cdot B \cdot X \cdot C = U$, the value becomes $U \cdot \ket{\psi_1}$.\\
+
+    Via this, we can say that the implementation of Controlled U gate above is indeed correct.
+    
     \end{proof}
 \end{solution}

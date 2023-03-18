@@ -1,8 +1,48 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 4}\label{ques:4}
     \begin{question}
-    quess
+    Design an efficient quantum algorithm for the ‘Modified Simon’s Problem’. Here, the algorithm is given oracle access to two functions $f_1: \{0, 1\}^n \rightarrow \{0, 1\}^n$, $f_2: \{0, 1\}^n \rightarrow \{0, 1\}^n$ with the guarantee that there exist a bit-string $s \in \{0, 1\}^n$ such that for all $x \in \{0, 1\}^n$, $f_1(x) = f_2(x \oplus s)$. The algorithm must output $s$ with non-negligible probability, and can make $poly(n)$ queries to $f_1$, $f_2$. Describe the quantum circuit using unitaries $U_{f_1}$,$U_{f_2}$.
     \end{question}
     \tcblower{}
     \begin{proof}
+    The quantum circuit using the unitaries $U_{f_1}$ and $U_{f_2}$ can be described as follows:\\
+    \begin{quantikz}[thin lines] 
+            \lstick{$\ket{0^n}$} & \gate{H^{\otimes n}} & \gate[wires = 2]{U_{f_1}} & \gate[wires = 2]{U_{f_2}} & \gate{H^{\otimes n}} & \meter{} & \qw \\
+            \lstick{$\ket{0^n}$}  &\qw & \qw & &  \qw & \meter{} & \qw       
+    \end{quantikz}
+
+    The quantum algorithm must output s with a non-negligible probability given oracle access with poly(n) queries to $f_1$ and $f_2$. We will show an efficient quantum algorithm for this problem by reducing it to the original Simon's Problem.
+
+
+    \begin{claim}\label{claim:4.1}
+    There exists an equivalent problem to solve as Simon's problem.
+    \end{claim}
+
+    \begin{proof}
+        Construct a function $g : \{0,1\}^n \rightarrow \{0,1\}^n$ such that $g(x) = f_1(x)\oplus f_2(x)$\\
+        Now, let us look at $g(x\oplus s)$ where $s \in \{0, 1\}^n$  is a bit string s.t. for all $x \in \{0, 1\}^n$, $f_1(x) = f_2(x \oplus s)$.
+        \begin{equation}
+            g(x \oplus s) = f_1(x \oplus s) \oplus f_2(x \oplus s)
+            = f_2(x) \oplus f_1(x)
+            = g(x)
+        \end{equation}
+        Here, $g(x\oplus s)$ will be equal to $g(x)$ only when $f_1(x) = f_2(x \oplus s)$ holds for all $x$. Hence Modified Simon's Problem can be reduced to Simon's problem.
+        The oracle output for $g$ will be oracle output of $f_1 \oplus$ oracle output of $f_2$
+
+    \end{proof}
+
+    \begin{claim} \label{claim:4.2}
+        $U_{f_1}$ followed by $U_{f_2}$ is same as the unitary $U_g$
+    \end{claim}
+
+    \begin{proof}
+    Consider a quantum state $\ket{\psi_{in}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y}$. After $U_{f_1}$, we get $\ket{\psi_1} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x)}$. On applying $U_{f_2}$, we get $\ket{\psi_{out}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x) \oplus f_2(x)}$\\
+
+    Now for $U_g$, if initial quantum state $\ket{\psi_{in}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y}$, output quantum state would be $\ket{\psi_{out}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus g(x)} =  \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x) \oplus f_2(x)}$\\
+
+    Given the same input states, output states for both are the same, hence applying $U_{f_1}$ after $U_{f_2}$ is the same as the unitary $U_g$.
+    \end{proof}
+
+    Claim \ref{claim:4.1} and \ref{claim:4.2} clearly show the efficient algorithm for finding a solution to the modified Simon's problem by successfully reducing it to Simon's Problem.
+    
     \end{proof}
 \end{solution}

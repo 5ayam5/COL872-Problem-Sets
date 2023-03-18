@@ -1,8 +1,47 @@
-\begin{solution}{Question 1}\label{ques:1}
+\begin{solution}{Question 2.1}\label{ques:21}
     \begin{question}
-    quess
+    Show that, for any $f : \{0,1\}^n \rightarrow \{0,1\}$, $U_f$ can be implemented using $CP_f$.
     \end{question}
     \tcblower{}
     \begin{proof}
+
+    the implementation of $U_f$ using $CP_f$ is ans follows:
+
+     \begin{quantikz}
+    \lstick{$\ket{x}$} & \qw & \gate[2]{CP_f} & \qw &\qw\\
+    \lstick{$\ket{y}$}& \gate{H} & \qw& \gate{H}&\qw
+    \end{quantikz}
+
+    If the initial value of y is 0, after Hadamard, the qubit becomes $\ket{+}$. Applying $CP_f$ on $\ket{x}\ket{+}$,
+
+    \begin{align*}
+        CP_f(\ket{x}\ket{+}) & = \frac{1}{\sqrt{2}} (CP_f\ket{x}\ket{0} + CP_f\ket{x}\ket{1})\\
+        & = \begin{cases}
+            \ket{x}\ket{+}\text{ if }f(x) = 0\\
+            \ket{x}\ket{-}\text{ if }f(x) = 1
+        \end{cases}
+    \end{align*}
+
+    After applying Hadamard again, we get 
+    $\begin{cases}
+        \ket{x}\ket{0}\text{ if }f(x) =0\\
+        \ket{x}\ket{1}\text{ if }f(x) =1
+    \end{cases}$
+    which is equal to $\ket{x}\ket{0\oplus f(x)}$ which is $U_f\ket{x}\ket{0}$.\\
+
+    If the initial value of y is 1, after Hadamard, the qubit becomes $\ket{-}$. Applying $CP_f$ on $\ket{x}\ket{-}$,
+
+    \begin{align*}
+        CP_f(\ket{x}\ket{-}) & = \frac{1}{\sqrt{2}} (CP_f\ket{x}\ket{0} - CP_f\ket{x}\ket{1})\\
+        & = \begin{cases}
+            \ket{x}\ket{-}\text{ if } f(x) = 0\\
+            \ket{x}\ket{+}\text{ if } f(x) = 1
+        \end{cases}
+    \end{align*}
+
+    After applying Hadamard again, we get $\begin{cases}
+            \ket{x}\ket{1}\text{ if }f(x) =0\\
+            \ket{x}\ket{0}\text{ if }f(x) =1
+        \end{cases}$ which is equal to $\ket{x}\ket{1\oplus f(x)}$ which is $U_f\ket{x}\ket{1}$.
     \end{proof}
 \end{solution}
