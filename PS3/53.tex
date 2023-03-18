@@ -6,5 +6,26 @@ Using the above two parts, what can we conclude about $\rho$?
     \end{question}
     \tcblower{}
     \begin{proof}
+    Consider the density matrix of $\ket{\psi}$. It can be written as a linear combination of matrices in $\mathcal{M}$,
+    \begin{equation}
+        \begin{split}
+            \ket{\psi}\bra{\psi} &= \alpha_1\bfI + \alpha_2\bfX + \alpha_3\bfZ + \alpha_4\bfX\cdot\bfZ\\
+                                 &= \begin{bmatrix}
+                                        \alpha_1 + \alpha_3&\alpha_2-\alpha_4\\
+                                        \alpha_2 + \alpha_4&\alpha_1 - \alpha_3
+                                    \end{bmatrix}
+        \end{split}
+    \end{equation}
+    From the fact that the density matrices have a trace $= 1$, we get that $\alpha_1 = 1/2$. Now consider the resultant density matrix after encrypting $\ket{\psi}$,
+    \begin{equation}
+        \begin{split}
+            \rho &= \frac{1}{4} \ket{\psi}\bra{\psi}+\bfX\ket{\psi}\bra{\psi}\bfX+\bfZ\ket{\psi}\bra{\psi}\bfZ+\bfX\cdot\bfZ\ket{\psi}\bra{\psi}\bfZ\cdot\bfX\\
+                 &= f(\ket{\psi})\\
+                 &= f(\alpha_1\bfI + \alpha_2\bfX + \alpha_3\bfZ + \alpha_4\bfX\cdot\bfZ)\\
+                 &= \alpha_1 f(\bfI) + \alpha_2 f(\bfX) + \alpha_3 f(\bfZ) + \alpha_4 f(\bfX\cdot \bfZ)\text{ (since $f$ is a linear operator)}\\
+                 &= \alpha_1 f(\bfI) = \frac{1}{2}\bfI
+        \end{split}
+    \end{equation}
+    Therefore, we get that the resultant density matrix is independent of $\ket{\psi}$ and therefore the proposed encryption scheme perfectly hides the qubit.
     \end{proof}
 \end{solution}
