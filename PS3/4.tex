@@ -4,45 +4,42 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-    The quantum circuit using the unitaries $U_{f_1}$ and $U_{f_2}$ can be described as follows:\\
-    \begin{quantikz}[thin lines] 
-            \lstick{$\ket{0^n}$} & \gate{H^{\otimes n}} & \gate[wires = 2]{U_{f_1}} & \gate[wires = 2]{U_{f_2}} & \gate{H^{\otimes n}} & \meter{} & \qw \\
-            \lstick{$\ket{0^n}$}  &\qw & \qw & &  \qw & \meter{} & \qw       
-    \end{quantikz}
+        The quantum circuit that solves the problem can be described as follows:
+        \begin{center}
+            \begin{quantikz}[thin lines, transparent]
+                    \lstick{$\ket{0}$} & \gate{H} & \gate[wires = 3]{U_h} & \gate{H} & \meter{} & \qw\\
+                    \lstick{$\ket{0^n}$} & \gate{H^{\otimes n}} & & \gate{H^{\otimes n}} & \meter{} & \qw \\
+                    \lstick{$\ket{0^{2n}}$} & \qw & & \qw & \meter{} & \qw
+            \end{quantikz}
+        \end{center}
 
-    The quantum algorithm must output s with a non-negligible probability given oracle access with poly(n) queries to $f_1$ and $f_2$. We will show an efficient quantum algorithm for this problem by reducing it to the original Simon's Problem.
+        \begin{claim}\label{claim:4.1}
+        There exists an equivalent problem to solve as Simon's problem.
+        \end{claim}
 
+        \begin{proof}
+            Construct a function $h : \{0, 1\}\times \{0,1\}^n \rightarrow \{0,1\}^{2n}$ such that $h(b, x) = f_{b+1}(x) || f_{2-b}(x)$\par
+            Now, let us look at $h(\bar{b}, x\oplus s)$ where $s \in \{0, 1\}^n$  is a bit string s.t. for all $x \in \{0, 1\}^n$, $f_1(x) = f_2(x \oplus s)$.
+            \begin{equation}
+                \begin{split}
+                    h(\bar{b}, x \oplus s) &= f_{(1-b)+1}(x \oplus s) || f_{2-(1-b)}(x \oplus s)\\
+                                           &= f_{2-b}(x) || f_{b+1}(x)\\
+                                           &= h(b, x)
+                \end{split}
+            \end{equation}
+            Here, $h(\bar{b}, x\oplus s)$ will be equal to $h(b, x)$ only when $f_1(x) = f_2(x \oplus s)$ holds for all $x$. Hence Modified Simon's Problem can be reduced to Simon's problem (note that if we have two $x, x'$ such that $f_1(x) = f_1(x') \wedge f_2(x) = f_2(x')$ it won't be an issue similar to the case in Even-Mansour Cipher).\par
+        \end{proof}
 
-    \begin{claim}\label{claim:4.1}
-    There exists an equivalent problem to solve as Simon's problem.
-    \end{claim}
-
-    \begin{proof}
-        Construct a function $g : \{0,1\}^n \rightarrow \{0,1\}^n$ such that $g(x) = f_1(x)\oplus f_2(x)$\\
-        Now, let us look at $g(x\oplus s)$ where $s \in \{0, 1\}^n$  is a bit string s.t. for all $x \in \{0, 1\}^n$, $f_1(x) = f_2(x \oplus s)$.
-        \begin{equation}
-            g(x \oplus s) = f_1(x \oplus s) \oplus f_2(x \oplus s)
-            = f_2(x) \oplus f_1(x)
-            = g(x)
-        \end{equation}
-        Here, $g(x\oplus s)$ will be equal to $g(x)$ only when $f_1(x) = f_2(x \oplus s)$ holds for all $x$. Hence Modified Simon's Problem can be reduced to Simon's problem.
-        The oracle output for $g$ will be oracle output of $f_1 \oplus$ oracle output of $f_2$
-
-    \end{proof}
-
-    \begin{claim} \label{claim:4.2}
-        $U_{f_1}$ followed by $U_{f_2}$ is same as the unitary $U_g$
-    \end{claim}
-
-    \begin{proof}
-    Consider a quantum state $\ket{\psi_{in}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y}$. After $U_{f_1}$, we get $\ket{\psi_1} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x)}$. On applying $U_{f_2}$, we get $\ket{\psi_{out}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x) \oplus f_2(x)}$\\
-
-    Now for $U_g$, if initial quantum state $\ket{\psi_{in}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y}$, output quantum state would be $\ket{\psi_{out}} = \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus g(x)} =  \sum_{x,y} \alpha_{x,y}\ket{x}\ket{y \oplus f_1(x) \oplus f_2(x)}$\\
-
-    Given the same input states, output states for both are the same, hence applying $U_{f_1}$ after $U_{f_2}$ is the same as the unitary $U_g$.
-    \end{proof}
-
-    Claim \ref{claim:4.1} and \ref{claim:4.2} clearly show the efficient algorithm for finding a solution to the modified Simon's problem by successfully reducing it to Simon's Problem.
-    
+        We now show a circuit using $U_{f_1}$ and $U_{f_2}$ that performs the working of $U_h$:
+        \begin{center}
+            \begin{quantikz}[thin lines, transparent]
+                \lstick{$\ket{b}$} & \ctrl{3} & \qw & \qw & \ctrl{3} & \qw \\
+                \lstick{$\ket{x}$} & \qw & \gate[wires = 2]{U_{f_1}} & \gate[wires = 3, label style={yshift=0.33cm}]{U_{f_2}} & \qw & \qw \\
+                \lstick{$\ket{y_1}$} & \swap{1} & & \linethrough & \swap{1} & \qw \\
+                \lstick{$\ket{y_2}$} & \targX{} & \qw & & \targX{} & \qw
+            \end{quantikz}
+        \end{center}
+        
+        Claim \ref{claim:4.1} and the above oracle unitary clearly show the efficient algorithm for finding a solution to the modified Simon's problem by successfully reducing it to Simon's Problem.
     \end{proof}
 \end{solution}
