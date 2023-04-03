@@ -22,7 +22,15 @@
     In case the prover is not able to identify the bit $b$ for the message $y$, it can output the correct answer bit with the probability $\frac{1}{2}+\epsilon$ where $\epsilon$ is negligible information the prover can extract from the zero-knowledge proof provided by the verifier. \\
     
     \textbf{Simulator for ZK with auxiliary info:}\\
-    
+    \protocol{Simulator $\calS$}{Simulator for zero-knowledge protocol with auxiliary information}{22sim}{
+            \begin{enumerate}
+                \item checks the zero-knowledge proof given to it by the verifier
+                \item verifier sends y
+                \item for $i = 1\ldots n$ do
+                \item | Obtain the transcript $(m_1, m_2, m_3)$ on running $S^*(x, m_1)$.
+                \item If $S^*$ fails to simulate, output $0$. Else output $m_3$.
+            \end{enumerate}
+    }
     
     \end{proof}
 \end{solution}

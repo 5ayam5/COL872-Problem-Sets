@@ -1,8 +1,46 @@
-\begin{solution}{HVZK PoK for k-out-of-t DDH}\label{ques:1}
+\begin{solution}{HVZK PoK for k-out-of-t DDH}\label{ques:23}
     \begin{question}
-    quess
+    Let $k, t$ be two integers such that $k \leq t$. Consider the following language:
+    \begin{equation}
+        \lddhkt =
+        \left\{\begin{aligned}
+            && \exists \text{ indices } i_1, i_2, \ldots i_k \in [t],\\
+            (g,h,u_1,v_1\ldots,u_t,v_t)&: & \exists \text{ exponents } a_1, a_2, \ldots, a_k \in \z_q,\\
+            &&\text{s.t. }\forall j \leq k, u_{i_j} = g^{a_j} and v_{i_j} = h^{a_j}
+        \end{aligned}\right\}
+    \end{equation}
     \end{question}
     \tcblower{}
     \begin{proof}
+        We propose the following protocol:
+        \protocol{HVZK Protocol}{HVZK Protocol for $\lddhkt$}{23proto}{
+            \begin{enumerate}
+                \item Prover samples $\alpha \gets \z_q$, $\pi \gets \perm{[t]}{[t]}$
+                \item Prover computes $g' = g^\alpha, h' = h^\alpha$, $\calU = \pi\left(\{u_i^\alpha\}_{i\in [t]}\right)$, $\calV = \pi\left(\{v_i^\alpha\}_{i\in [t]}\right)$, $c = \commit((\pi, \alpha); r)$ and sends them to the verifier
+                \item Verifier picks a bit $b \gets \{0, 1\}$ and sends it to the prover
+                \item If $b = 0$, prover sends $r$ to the verifier and the verifier then checks if the prover did indeed use the committed $\pi$ and $\alpha$ for transforming the input. The interaction ends.
+                \item If $b = 1$, prover sends $\pi(i_1, i_2, \ldots, i_k)$
+                \item For each $j \in \{i_1, i_2, \ldots, i_k\}$, prover sends ZKP for $\lddh(g', h', \calU_{\pi(j)}, \calV_{\pi(j)})$ using the protocol given in Question~\ref{ques:21}
+            \end{enumerate}
+        }
+
+        \textbf{Completeness:} This protocol has perfect completeness since the interaction by the prover having a witness to an instance in $\lddhkt$ will be accepted by the verifier.
+
+        \textbf{Proof of Knowledge:} We define the extractor as follows:
+        \begin{enumerate}
+            \item Extractor receives $g', h', \calU, \calV$ from the prover
+            \item Extractor sends $b = 0$ and extracts $\pi, \alpha$
+            \item Extractor rewinds the prover and now sends $b = 1$ and receives $\pi(i_1, \ldots, i_k)$
+            \item For each $j \in \{i_1, \ldots, i_k\}$, extractors follows the steps followed by the extractor in Question~\ref{ques:21} to obtain all $a_1, a_2, \ldots, a_k$
+        \end{enumerate}
+
+        \textbf{Honest-Verifier Zero-Knowledge:} We define the simulator as follows:
+        \begin{enumerate}
+            \item Simulator picks a random $\alpha$ and a random $\pi$ and sends $g', h', \calU, calV$ to the verifier. It also samples a random set $\{p_1, p_2, \ldots, p_k\}$.
+            \item If the simulator receives $b = 0$, it sends the opening to the verifier and outputs the transcript.
+            \item Else, it sends $\pi(p_1, p_2, \ldots, p_k)$ to the verifier.
+            \item The simulator then simulates the proof using the simulator defined in Question~\ref{ques:21} for each $j \in \{p_1, p_2, \ldots, p_k\}$ and outputs the combined transcript.
+        \end{enumerate}
+        This transcript is identical to the real world transcript since $\pi(p_1, p_2, \ldots, p_k)$ is indistinguishable from $\pi(i_1, i_2, \ldots, i_k)$ and the remaining interaction is either identical to the prover or to the simulator of Question~\ref{ques:21}. Hence, it is a HVZK protocol.
     \end{proof}
 \end{solution}

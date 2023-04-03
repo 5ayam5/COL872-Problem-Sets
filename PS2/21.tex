@@ -1,4 +1,4 @@
-\begin{solution}{HVZK PoK for DDH}\label{ques:2.2}
+\begin{solution}{HVZK PoK for DDH}\label{ques:21}
     \begin{question}
     Consider the following language:
     \begin{equation}
@@ -28,9 +28,9 @@
         For every tuple $(w_i,t_i,c_i)$ given prover knows the value a
         \begin{equation}
         \begin{split}
-                x\cdot u^{c_1} = g^{t_1}*g^{a\cdot c_1} &= g^{t_1+a\cdot c_1} = g^{w_1}\\
-                y\cdot v^{c_2} = h^{t_2}*g^{a\cdot c_2} &= h^{t_2+a\cdot c_2} = h^{w_2}\\
-                z\cdot (u\cdot v)^{c_3} = (g\cdot h)^{t_3}*(g\cdot h)^{a\cdot c_3} &= (g\cdot h)^{t_3+a\cdot c_3} = (g\cdot h)^{w_3}\\   
+                x\cdot u^{c_1} = g^{t_1}\cdot g^{a\cdot c_1} &= g^{t_1+a\cdot c_1} = g^{w_1}\\
+                y\cdot v^{c_2} = h^{t_2}\cdot g^{a\cdot c_2} &= h^{t_2+a\cdot c_2} = h^{w_2}\\
+                z\cdot (u\cdot v)^{c_3} = (g\cdot h)^{t_3}\cdot (g\cdot h)^{a\cdot c_3} &= (g\cdot h)^{t_3+a\cdot c_3} = (g\cdot h)^{w_3}\\   
         \end{split}
         \end{equation}
         Hence an honest verifier is always convinced for an honest prover, perfect completeness\\
