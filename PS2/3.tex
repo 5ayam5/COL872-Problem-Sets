@@ -1,6 +1,6 @@
-\begin{solution}{Question 3: Impossibility of two-round zero-knowledge protocols with auxiliary information}\label{ques:1}
+\begin{solution}{Question 3: Impossibility of two-round zero-knowledge protocols with auxiliary information}\label{ques:3}
     \begin{question}
-    quess
+        Prove that two-round protocols (where the verifier sends the first message and prover sends the second message) cannot satisfy the zero-knowledge property in the presence of auxiliary information. Describe the argument in full detail.
     \end{question}
     \tcblower{}
     \begin{proof}
@@ -23,14 +23,28 @@
                 \item If $S^*$ fails to simulate, output $0$. Else output $m_3$.
             \end{enumerate}
         }
-        We first note that $\calA$ is a ppt algorithm since it uses $V_1, S^*$ in sequence which are both ppt algorithms. Now, consider the probability of $\calA$ in deciding $x \in \calL_{yes}$ when $x$ is a yes instance (assuming that completeness of the protocol is $c$ and soundness error is $s$),
+        We first note that $\calA$ is a ppt algorithm since it uses $V_1, S^*$ in sequence which are both ppt algorithms.\par
+
+        Now, consider the probability of $\calA$ in deciding $x \in \calL_{yes}$ when $x$ is a yes instance (assuming that completeness of the protocol is $c$ and soundness error is $s$),
         \begin{equation}
             \begin{split}
-                \prob{\calA\text{ succeeds}} &= \prob{S^*\text{ succeeds}}\cdot \prob{m_3 = 1}\\
-                                             &= (1 - \mu(n))\cdot \prob{m_3 = 1}\\
-                                             &\geq (1 - \mu(n))\cdot (c - s)
+                \prob{\calA\text{ outputs }1} &= \prob{S^*\text{ does not output }\perp}\cdot \prob{m_3 = 1 | x \in \calL_{yes}}\\
+                                             &= (1 - \mu(n))\cdot \prob{m_3 = 1 | x \in \calL_{yes}}\\
+                                             &= (1 - \mu(n))\cdot c
             \end{split}
         \end{equation}
-        Therefore, we can see that $\calA$ can decide $x \in \calL_{yes}$ with probability $ > 1/3$ in ppt. Therefore, $\calL$ is in BPP.
+        Therefore, we can see that $\calA$ can decide $x \in \calL_{yes}$ with probability $ > 2/3$ in ppt.
+
+        Again, consider the probability of $\calA$ in deciding $x \in \calL_{no}$ when $x$ is a no instance,
+        \begin{equation}
+            \begin{split}
+                \prob{\calA\text{ outputs }0} &= \prob{S^*\text{ does not output }\perp}\cdot \prob{m_3 = 0 | x \in \calL_{no}}\\
+                                             &= (1 - \mu(n))\cdot \prob{m_3 = 0 | x \in \calL_{no}} + \mu(n)\\
+                                             &= (1 - \mu(n))\cdot (1 - s) + \mu(n)
+            \end{split}
+        \end{equation}
+        Therefore, we can see that $\calA$ can decide $x \in \calL_{no}$ with probability $ > 2/3$ in ppt.
+
+        Therefore, $\calL$ is in BPP.
     \end{proof}
 \end{solution}
