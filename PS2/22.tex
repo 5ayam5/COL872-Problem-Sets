@@ -1,8 +1,28 @@
-\begin{solution}{ZK protocol for DDH}\label{ques:1}
+\begin{solution}{ZK protocol for DDH}\label{ques:23}
     \begin{question}
-    quess
+    Next, consider the complement of $\lddh$, denoted by $\lnddh$ (defined below).
+    \begin{equation}
+        \lnddh = \{(g,h,u,v): \forall a \in \z_q \text{ either } u \neq g^a \text{ or } v \neq h^a \}
+    \end{equation}
+    Construct a protocol for $\lnddh$. The protocol must have perfect completeness, constant soundness and it should satisfy zero-knowledge w.r.t. auxiliary information.
     \end{question}
     \tcblower{}
     \begin{proof}
+    In a zero-knowledge with auxiliary information setting, the common input is the same as before. We have to show that the given prover can distinguish between the groups created by $u\cdot v$ and $g \cdot h$. The protocol for $\lnddh$ is defined as follows:
+    \begin{enumerate}
+        \item \textbf{V:} Verifier chooses a bit $b$ and $x\leftarrow \z_q$ and a message $m=g\cdot h$ when $b = 0$ and $m = u \cdot v$ when $b = 1$. Where $u$ and $v$ are defined as $g^x$ and $h^x$ respectively.
+        \item \textbf{V:} It sends a zero-knowledge proof to the prover that it has chosen a bit b and x. This is possible since verifying $\exists b : \exists x : m_b^x$ is possible in polynomial time ($O(1)$ time) and zero-knowledge reductions exist to NP-complete problem. This is taken as a preventive measure towards avoiding the verifier from using the auxiliary information.
+        \item \textbf{V:} Verifier then sends $y = m_b^x$ to the prover
+        \item \textbf{P:} Prover then sends a bit $b'$ by distinguishing if $m_b^x$ was a group element of $m_0$ or $m_1$
+    \end{enumerate}
+    \textbf{Completeness:}\\
+    Since prover is unbounded, prover can find all the group elements for $u\cdot v$ and $g\cdot h$. It is a yes instance for $\lnddh$; therefore, both groups will be disjoint, and hence it can identify and send the appropriate bit $b' = b$. Hence it has perfect completeness.\\
+    
+    \textbf{Soundness:}\\
+    In case the prover is not able to identify the bit $b$ for the message $y$, it can output the correct answer bit with the probability $\frac{1}{2}+\epsilon$ where $\epsilon$ is negligible information the prover can extract from the zero-knowledge proof provided by the verifier. \\
+    
+    \textbf{Simulator for ZK with auxiliary info:}\\
+    
+    
     \end{proof}
 \end{solution}
