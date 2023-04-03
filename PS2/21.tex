@@ -2,13 +2,13 @@
     \begin{question}
     Consider the following language:
     \begin{equation}
-        \lddh = \{(g,h,u,v): \exists a \in \z s.t. u = g^a , v = h^a
+        \lddh = \{(g,h,u,v): \exists a \in \z_q \text{ s.t. }u = g^a , v = h^a \}
     \end{equation}
     Construct an honest-verifier zero-knowledge proof-of-knowledge protocol for $\lddh$. The protocol must have perfect completeness, the knowledge error must be $1/q$, and it should satisfy the honest-verifier zero-knowledge property.
     \end{question}
     \tcblower{}
     \begin{proof}
-    In an honest verifier setting, the zero-knowledge, proof-of-knowledge can be defined as follows: 
+    In an honest verifier setting, the zero-knowledge proof-of-knowledge can be defined as follows: 
     \begin{itemize}
         \item Consider an honest verifier $\calV$ and a prover $\calP$.
         \item \textbf{Common input:} $g, u, h, v$ where all of them are group elements.
@@ -16,12 +16,48 @@
         \item \textbf{Claim to prove:} Prover knows a
     \end{itemize}
 
-    The protocol:
+    \textbf{The protocol:}
     \begin{enumerate}
         \item \textbf{P:} prover picks random $t_1, t_2, t_3$ and sends $x = g^{t_1}$, $y = h^{t_2}$ and $z = (g \cdot h)^{t_3}$ to the verifier
         \item \textbf{V:} verifier sends uniformly random $c_1, c_2, c_3$ with respect to the pairs $(g,u),(h,v),(g \cdot h,u \cdot v)$
         \item \textbf{P:} prover calculates $w_1 = t_1 +c_1\cdot a$, $w_2 = t_2 +c_2\cdot a$ and $w_3 = t_3 +c_3\cdot a$ and sends $w_1, w_2, w_3$ to the verifier
         \item \textbf{V:} verifier checks if $x \cdot u^{c_1} = g^{w_1}$, $y \cdot v^{c_2} = h^{w_2}$ and $z \cdot (u \cdot v)^{c_3} = (g \cdot h)^{w_3}$
     \end{enumerate}
+
+    \textbf{Completeness:}\\
+        For every tuple $(w_i,t_i,c_i)$ given prover knows the value a
+        \begin{equation}
+        \begin{split}
+                x\cdot u^{c_1} = g^{t_1}*g^{a\cdot c_1} &= g^{t_1+a\cdot c_1} = g^{w_1}\\
+                y\cdot v^{c_2} = h^{t_2}*g^{a\cdot c_2} &= h^{t_2+a\cdot c_2} = h^{w_2}\\
+                z\cdot (u\cdot v)^{c_3} = (g\cdot h)^{t_3}*(g\cdot h)^{a\cdot c_3} &= (g\cdot h)^{t_3+a\cdot c_3} = (g\cdot h)^{w_3}\\   
+        \end{split}
+        \end{equation}
+        Hence an honest verifier is always convinced for an honest prover, perfect completeness\\
+    \newpage
+
+    \textbf{Knowledge error:}\\
+    We define the extractor's run as follows: 
+    \begin{enumerate}
+        \item Extractor receives $x,y,z$
+        \item It then sends uniformly random $c_1$, $c_2$, $c_3$ to the prover
+        \item Then it receives $w_1$, $w_2$, $w_3$ in response
+        \item Extractor rewinds upto after point 1
+        \item It sends uniformly random $c_1'$, $c_2'$, $c_3'$ and receives $w_1'$, $w_2'$, $w_3'$
+        \item The extractor outputs $(w_1'-w_1)/(c_1'-c_1)$ which is equal to $(w_2'-w_2)/(c_2'-c_2)$ and $(w_3'-w_3)/(c_3'-c_3)$ assuming prover has the correct witness
+    \end{enumerate}
+    %I am dumb, pls help
+    probability of cheating = a chosen by prover is accidentally the witness => 1/q\\
+
+    % simulator:
+    % simply feed some randomness and send results accordingly
+    \textbf{HVZK:}\\
+    We can define the honest verifier zero-knowledge simulator as follows:
+    \begin{enumerate}
+        \item Simulator picks $c_1, c_2, c_3 \leftarrow \z_q$ and $w_1, w_2, w_3 \leftarrow \z_q$
+        \item it sets $x = g^w_1/u^c_1$, $y = h^w_2/v^c_2$, $z = (g\cdot h)^w_3/(u\cdot v)^c_3$
+        \item It then outputs the tuples $(x,c_1,w_1), (y,c_2,w_2)$ and $(z,c_3, w_3)$
+    \end{enumerate}
+    This transcript is identical to the real-world transcript. Hence we have a simulator.
     \end{proof}
 \end{solution}
