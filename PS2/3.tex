@@ -4,5 +4,33 @@
     \end{question}
     \tcblower{}
     \begin{proof}
+        (Proof Idea: We use the auxiliary input as the string that is sent to the prover. Thus, the simulator (even if it is non-black box) cannot "generate" a valid response unless L itself is in BPP)\par
+        The default interaction between the prover and the verifier is defined as:
+        \begin{enumerate}
+            \item $V_1(x, r) = m_1$ is sent to the prover
+            \item $P_2(x, m_1) = m_2$ is set to the verifier
+            \item $V_3(m_1, m_2) = m_3 \in \{0, 1\}$ is the result of the interaction (rejected or accepted)
+        \end{enumerate}
+        Now consider the following verifier $V^* = (V_1^*, V_3^*)$ that takes in auxiliary information $z$ and interacts with the prover as follows:
+        \begin{equation}
+            V_1^*(z)(x, r) = z, V_3^*(z)(x, r, m_2) = V_3(m_1, m_2)
+        \end{equation}
+        Since by our assumption, the given protocol is two-round zero-knowledge in the presence of auxiliary information, we will have a simulator for $V^*$. Let any such simulator be $S^*$. We now propose the following algorithm $\calA$ for checking if $x \in \calL_{yes}$,
+        \protocol{Algorithm $\calA$}{Algorithm for checking $x \in \calL_{yes}$}{lyes}{
+            \begin{enumerate}
+                \item Sample a random $r$ and compute $m_1 = V_1(x, r)$
+                \item Obtain the transcript $(m_1, m_2, m_3)$ on running $S^*(x, m_1)$.
+                \item If $S^*$ fails to simulate, output $0$. Else output $m_3$.
+            \end{enumerate}
+        }
+        We first note that $\calA$ is a ppt algorithm since it uses $V_1, S^*$ in sequence which are both ppt algorithms. Now, consider the probability of $\calA$ in deciding $x \in \calL_{yes}$ when $x$ is a yes instance (assuming that completeness of the protocol is $c$ and soundness error is $s$),
+        \begin{equation}
+            \begin{split}
+                \prob{\calA\text{ succeeds}} &= \prob{S^*\text{ succeeds}}\cdot \prob{m_3 = 1}\\
+                                             &= (1 - \mu(n))\cdot \prob{m_3 = 1}\\
+                                             &\geq (1 - \mu(n))\cdot (c - s)
+            \end{split}
+        \end{equation}
+        Therefore, we can see that $\calA$ can decide $x \in \calL_{yes}$ with probability $ > 1/3$ in ppt. Therefore, $\calL$ is in BPP.
     \end{proof}
 \end{solution}
