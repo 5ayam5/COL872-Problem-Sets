@@ -21,16 +21,29 @@
     \textbf{Soundness:}\\
     In case the prover is not able to identify the bit $b$ for the message $y$, it can output the correct answer bit with the probability $\frac{1}{2}+\epsilon$ where $\epsilon$ is negligible information the prover can extract from the zero-knowledge proof provided by the verifier. \\
     
-    \textbf{Simulator for ZK with auxiliary info:}\\
+    \textbf{Simulator for ZK with auxiliary info:}
     \protocol{Simulator $\calS$}{Simulator for zero-knowledge protocol with auxiliary information}{22sim}{
             \begin{enumerate}
-                \item checks the zero-knowledge proof given to it by the verifier
-                \item verifier sends y
-                \item for $i = 1\ldots n$ do
-                \item | Obtain the transcript $(m_1, m_2, m_3)$ on running $S^*(x, m_1)$.
-                \item If $S^*$ fails to simulate, output $0$. Else output $m_3$.
+                \item Verifier sends a zk proof of choosing a bit b and x and message $y = m_b^{x}$ to the simulator
+                \item Simulator checks the zero-knowledge proof and sends a random bit $b'$
+                \item If the verifier accepts the proof, its work is done, else simulator rewinds to the start and repeat the interaction
+                \item This repeats for atmost $n$ iterations until the verifier accepts simulator's guess or simulator outputs $\perp$
             \end{enumerate}
     }
-    
+    Probability of success of simulator (let probability of verifier choosing the bit $b = 0$ be $p$):
+    \begin{equation}
+        \begin{split}
+            P_{succ} &= \prob{b'=0|b=0} + \prob{b'=1|b=1}\\
+                     &= \frac{1}{2}p+\frac{1}{2}(1-p) = \frac{1}{2}
+        \end{split}
+    \end{equation}
+    After repeating (rewinding) for n iterations,
+    \begin{equation}
+        \begin{split}
+            P_{succ} &= 1 - \prob{\text{simulator outputs }\perp}\\
+                     &= 1 - \frac{1}{2^n}
+        \end{split}
+    \end{equation}
+    The transcript outputted by the simulator looks identical to a valid prover's transcript. Hence we have a protocol for zero knowledge with auxiliary information.
     \end{proof}
 \end{solution}

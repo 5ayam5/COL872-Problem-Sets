@@ -33,6 +33,18 @@
             \item Extractor rewinds the prover and now sends $b = 1$ and receives $\pi(i_1, \ldots, i_k)$
             \item For each $j \in \{i_1, \ldots, i_k\}$, extractors follows the steps followed by the extractor in Question~\ref{ques:21} to obtain all $a_1, a_2, \ldots, a_k$
         \end{enumerate}
+        Let us assume that the prover's success probability is $\epsilon_0$ when $b = 0$ and $\epsilon_1$ when $b = 1$. Since prover succeeds in convincing the verifier, $\epsilon_0/2 + \epsilon_1/2 = \epsilon$ is non-negligible. Additionally, since the prover can convince any verifier, both $\epsilon_0$ and $\epsilon_1$ should also be non-negligible. Therefore, the extractor's success probability is given as,
+        \begin{equation}
+            \begin{split}
+                \prob{\text{extractor succeeds}} &= \prob{\text{prover succeeds }|b = 0}\cdot\prob{\text{extractor succeeds }|b = 1}\\
+                                                 &= \epsilon_0\cdot \prob{\text{extractor succeeds } | b = 1}\\
+                                                 &= \epsilon_0\cdot \prod_{j\in\{i_1, \ldots, i_k\}}\prob{\text{extractor for }j\text{ succeeds}}\\
+                                                 &= \epsilon_0\cdot \prod_{j\in\{i_1, \ldots, i_k\}}\left(\epsilon_{\lddh}^2 - \frac{\epsilon_{\lddh}^2}{q}\right)\\
+                                                 &= \epsilon_0\cdot \left(\epsilon_{\lddh}^2 - \frac{\epsilon_{\lddh}^2}{q}\right)^k\\
+                                                 &\geq \epsilon_0\cdot \epsilon_{\lddh}^{2k} - k\cdot \epsilon_0\cdot\frac{\epsilon_{\lddh}^2}{q}
+            \end{split}
+        \end{equation}
+        Therefore, the success probability is non-negligible if $\epsilon_0$, $\epsilon_{\lddh}$ are non-negligible and $k$ is a constant. Thus, it is a PoK.
 
         \textbf{Honest-Verifier Zero-Knowledge:} We define the simulator as follows:
         \begin{enumerate}
