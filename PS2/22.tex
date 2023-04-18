@@ -11,7 +11,7 @@
     In a zero-knowledge with auxiliary information setting, the common input is the same as before. We have to show that the given prover can distinguish between the groups created by $u\cdot v$ and $g \cdot h$. The protocol for $\lnddh$ is defined as follows:
     \begin{enumerate}
         \item \textbf{V:} Verifier chooses a bit $b$ and $x\leftarrow \z_q$ and a message $m=g\cdot h$ when $b = 0$ and $m = u \cdot v$ when $b = 1$. Where $u$ and $v$ are defined as $g^x$ and $h^x$ respectively.
-        \item \textbf{V:} It sends a zero-knowledge proof to the prover that it has chosen a bit b and x. This is possible since verifying $\exists b : \exists x : m_b^x$ is possible in polynomial time ($O(1)$ time) and zero-knowledge reductions exist to NP-complete problem. This is taken as a preventive measure towards avoiding the verifier from using the auxiliary information.
+        \item \textbf{V:} It sends a zero-knowledge proof of knowledge to the prover that it has chosen a bit b and x. This is possible since verifying $\exists b : \exists x : m_b^x$ is possible in polynomial time ($O(1)$ time) and zero-knowledge reductions exist to NP-complete problem. This is taken as a preventive measure towards avoiding the verifier from using the auxiliary information.
         \item \textbf{V:} Verifier then sends $y = m_b^x$ to the prover
         \item \textbf{P:} Prover then sends a bit $b'$ by distinguishing if $m_b^x$ was a group element of $m_0$ or $m_1$
     \end{enumerate}
@@ -24,26 +24,21 @@
     \textbf{Simulator for ZK with auxiliary info:}
     \protocol{Simulator $\calS$}{Simulator for zero-knowledge protocol with auxiliary information}{22sim}{
             \begin{enumerate}
-                \item Verifier sends a zk proof of choosing a bit b and x and message $y = m_b^{x}$ to the simulator
-                \item Simulator checks the zero-knowledge proof and sends a random bit $b'$
-                \item If the verifier accepts the proof, its work is done, else simulator rewinds to the start and repeat the interaction
-                \item This repeats for atmost $n$ iterations until the verifier accepts simulator's guess or simulator outputs $\perp$
+                \item Simulator extracts the witness from the verifier and obtains $m_b^x$ from the verifier. Simulator repeats this extraction atmost $n$ times until it gets a valid witness.
+                \item If the simulator was able to extract a valid witness, it sends the obtained witness $b$ to the verifier and outputs the final transcript else it outputs $\perp$.
             \end{enumerate}
     }
     Probability of success of simulator (let probability of verifier choosing the bit $b = 0$ be $p$):
     \begin{equation}
         \begin{split}
-            P_{succ} &= \prob{b'=0|b=0} + \prob{b'=1|b=1}\\
-                     &= \frac{1}{2}p+\frac{1}{2}(1-p) = \frac{1}{2}
+            \prob{\text{simulator succeeds}} &= \prob{\text{simulator extracts successfully in atmost}n\text{ attempts}}\\
+            &= 1 - \prob{\text{extractor fails}}^n\\
+            &= 1 - (1 - (\epsilon - \kappa))^n   \\
+            & = 1 - \mu(n)
         \end{split}
     \end{equation}
-    After repeating (rewinding) for n iterations,
-    \begin{equation}
-        \begin{split}
-            P_{succ} &= 1 - \prob{\text{simulator outputs }\perp}\\
-                     &= 1 - \frac{1}{2^n}
-        \end{split}
-    \end{equation}
+    $\epsilon - \kappa$ is non negligible since verifier sends a proof of knowledge. Therefore $1-(\epsilon - \kappa)<1$ by a non negligible amount. Hence after repeating (rewinding) for n iterations, the probability of the extractor outputting $\perp = (1-(\epsilon - \kappa))^n$ which after enough iterations becomes negligible. The argument works since the witness, if successfully extracted, will always be unique.\\
+    
     The transcript outputted by the simulator looks identical to a valid prover's transcript. Hence we have a protocol for zero knowledge with auxiliary information.
     \end{proof}
 \end{solution}

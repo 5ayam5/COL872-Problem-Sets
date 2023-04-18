@@ -48,17 +48,17 @@
             \item The extractor outputs $(w_1'-w_1)/(c_1'-c_1)$ which is equal to $(w_2'-w_2)/(c_2'-c_2)$ and $(w_3'-w_3)/(c_3'-c_3)$ assuming prover has the correct witness
         \end{enumerate}
     }
-    Let us assume that the prover succeeds in convincing the verifier with probability $\epsilon$, where $\epsilon$ is non-negligible. Now, our extractor would fail if $c_i' = c_i$ and this will happen with probability $1/q$. Therefore, the knowledge error will be at least $1/q$. For the case when $c_i' \neq c_i$, the extractor's success probability can be computed by,
+    Let us assume that the prover succeeds in convincing the verifier with probability $\epsilon$, where $\epsilon$ is non-negligible. Now, our extractor would fail if $c_i' = c_i$ and this will happen with probability $1/q$. Therefore, the knowledge error will be at least $1/q$. The extractor's success probability can be computed by,
     \begin{equation}
         \begin{split}
-            &\prob{\text{extractor succeeds }| c_i' \neq c_i}\\
-            = &\prob{\text{prover convinces verifier on receiving }c_i}\cdot\prob{\text{prover convinces verifier on receiving }c_i'}\\
-            = &\epsilon^2
+            &\prob{\text{extractor succeeds}}\\
+            = &\sum_{x, y, z}p_{x,y,z}\prob{\text{prover convinces verifier for }c_i | x, y, z}\\
+            &\cdot\prob{\text{prover convinces verifier for }c_i' | x, y, z} \cdot \prob{c_i \neq c_i'}\\
+            = &\left(1 - \frac{1}{q}\right)\sum_{x, y, z}p_{x,y,z}\cdot\left(\prob{\text{prover convinces verifier for }c_i | x, y, z}\right)^2\\
+            \geq &\left(1 - \frac{1}{q}\right) \cdot \left(\sum_{x,y,z}p_{x,y,z}\cdot \prob{\text{prover convinces verifier for }c_i | x, y, z}\right)^2\\
+            = &\left(1 - \frac{1}{q}\right)\cdot\epsilon^2\\
+            = &\epsilon^2 - \frac{\epsilon^2}{q}
         \end{split}
-    \end{equation}
-    Therefore, the success probability of extractor can be given by:
-    \begin{equation}
-        \prob{\text{extractor succeeds}} = \left(1 - \frac{1}{q}\right)\cdot\epsilon^2 = \epsilon^2 - \frac{\epsilon^2}{q}
     \end{equation}
     Which is non-negligible if $\epsilon$ is non-negligible. Hence it is a PoK.
 
@@ -67,7 +67,7 @@
     \protocol{HVZK Simulator for $\lddh$}{Honest-Verifier Zero Knowledge Simulator for $\lddh$}{21hvzk}{
         \begin{enumerate}
             \item Simulator picks $c_1, c_2, c_3 \leftarrow \z_q$ and $w_1, w_2, w_3 \leftarrow \z_q$
-            \item it sets $x = g^w_1/u^c_1$, $y = h^w_2/v^c_2$, $z = (g\cdot h)^w_3/(u\cdot v)^c_3$
+            \item it sets $x = g^{w_1}/u^{c_1}$, $y = h^{w_2}/v^{c_2}$, $z = (g\cdot h)^{w_3}/(u\cdot v)^{c_3}$
             \item It then outputs the tuples $(x,c_1,w_1), (y,c_2,w_2)$ and $(z,c_3, w_3)$
         \end{enumerate}
     }
