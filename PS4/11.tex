@@ -1,0 +1,88 @@
+\begin{solution}{Question 1.1}\label{ques:x}
+    \begin{question}
+    Give an example of two projective measurements $\calP , \calQ$ that are non-commutative
+    \end{question}
+    \tcblower{}
+    \begin{proof}
+    Let us consider $s,t=2$ and the projective measurements be defined as follows:
+    \begin{equation}
+        \begin{split}
+        &\calP = \left\{ \bfP_0 = \ket{0}\bra{0} = 
+        \begin{pmatrix}
+        1 & 0\\
+        0 & 0 
+        \end{pmatrix}  
+        , \bfP_1 = \ket{1}\bra{1} =
+        \begin{pmatrix}
+        0 & 0\\
+        0 & 1 
+        \end{pmatrix}  \right\}\\
+        &\calQ = \left\{ \bfQ_0 = \ket{+}\bra{+} =
+        \begin{pmatrix}
+        1/2 & 1/2\\
+        1/2 & 1/2
+        \end{pmatrix}  
+        , \bfQ_1 = \ket{-}\bra{-} =
+        \begin{pmatrix}
+        1/2 & -1/2\\
+        -1/2 & 1/2 
+        \end{pmatrix}  \right\}
+        \end{split}
+    \end{equation}
+
+    Let us apply the projective methods in both orders: i.e. $\bfQ_0\bfP_0$ and $\bfP_0\bfQ_0$ to the qubit $\ket{0}$, which is the probability of getting 00 on $\ket{0}$\\
+
+     $\bfQ_0\bfP_0\ket{0}=\ket{+}$ with probability = $\frac{1}{2}$
+     \begin{equation}
+         \begin{split}
+            &\bfQ_0\bfP_0\ket{0} = 
+            \begin{pmatrix}
+            1/2 & 1/2\\
+            1/2 & 1/2 
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 & 0\\
+            0 & 0 
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 \\
+            0 
+            \end{pmatrix} =
+            \begin{pmatrix}
+            1/2 \\
+            1/2 
+            \end{pmatrix} = 
+            \frac{1}{\sqrt{2}}\ket{+}
+        \end{split}
+     \end{equation}
+
+     $\bfP_0\bfQ_0\ket{0}=\ket{0}$ with probability = $\frac{1}{4}$
+     \begin{equation}
+         \begin{split}
+            &\bfP_0\bfQ_0\ket{0} = 
+            \begin{pmatrix}
+            1 & 0\\
+            0 & 0 
+            \end{pmatrix}
+            \begin{pmatrix}
+            1/2 & 1/2\\
+            1/2 & 1/2 
+            \end{pmatrix}
+            \begin{pmatrix}
+            1 \\
+            0 
+            \end{pmatrix} =
+            \begin{pmatrix}
+            1/2 \\
+            0 
+            \end{pmatrix} = 
+            \frac{1}{2}\ket{0}
+        \end{split}
+     \end{equation}
+
+    Since both the residual states and respective probabilities of seeing 00 after both measurements are different, the two are NOT commutative
+
+
+    
+    \end{proof}
+\end{solution}

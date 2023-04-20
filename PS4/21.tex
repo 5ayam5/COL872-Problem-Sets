@@ -1,0 +1,14 @@
+\begin{solution}{Question 2: Collapsing hash from claw-free functions}\label{ques:x}
+    \begin{question}
+    Show that $\{H_k \equiv f_k\}_{k\in K}$ is a collapsing hash function.
+    \end{question}
+    \tcblower{}
+    \begin{proof}
+    We will Begin the proof by stating that the claw free function is a post-quantum CRHF. This can be said because For two bit-strings ($x_0,x_1$) in the domain of claw-free function, there can be two cases: \begin{enumerate}
+        \item $x_0$ and $x_1$ have the same first bit. In this case no collision is possible between $x_0$ and $x_1$ as the claw-free function $f_k(b,\cdot)$ is injective $\forall k \in \calK, b \in \{0,1\}$
+        \item $x_0$ and $x_1$ have different first bit. In this case as well there is no collision possible due to the security definition opf claw free function.
+    \end{enumerate}
+
+    
+    \end{proof}
+\end{solution}
