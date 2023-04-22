@@ -1,10 +1,26 @@
-\begin{solution}{Question 1.2: Show that the projective measurements $\calP = \{\bfP_i \}_{i\in[s]}$ and $\calQ = \{\bfQ_i \}_{i\in[t]}$ are
-commutative.}\label{ques:x}
+\begin{solution}{Question 1.2}\label{ques:12}
     \begin{question}
-    question
+    Show that the projective measurements $\calP = \{\bfP_i \}_{i\in[s]}$ and $\calQ = \{\bfQ_i \}_{i\in[t]}$ are commutative.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+    Let $\{\ket{\bfv_i}\}_i$ be an orthonormal basis for $\C^N$. Let $\calS = (S_1, \ldots, S_s)$ and $\calT = (T_1, \ldots, T_t$) be two partitions of $[N]$.
+    Let $\bfP_i = \sum_{k\in S_i}\ket{v_k}\bra{v_k}$ for each $i \in [s]$ and $\bfQ_j = \sum_{l\in T_j}\ket{v_l}\bra{v_l}$ for each $j \in [t]$.\\
+
+    \begin{equation}
+    \begin{split}
+        \bfQ_j \bfP_i &= \sum_{l\in T_j}\ket{v_l}\bra{v_l} \sum_{k\in S_i}\ket{v_k}\bra{v_k}\\
+        &= \sum_{l\in T_j}\sum_{k\in S_i}\ket{v_l}\bra{v_l}\ket{v_k}\bra{v_k}\\
+        &=\sum_{l\in T_j}\sum_{k\in S_i}\ket{v_l}\braket{v_l|v_k}\bra{v_k}\\
+        &= \sum_{m\in T\cap S}\ket{v_m}\bra{v_m}
+    \end{split}
+    \end{equation}
+    We considered the set $T\cap S$ because $\{\bfv_i\}_i$ is a set of orthonormal vectors and resultant matrix will only involve values where $k=l$ since the inner product would be zero in all other cases. Similarly, for $\bfP_i \bfQ_j $, we obtain the same matrix:\\
+    \begin{equation}
+    \begin{split}
+        \bfP_i \bfQ_j &=  \sum_{k\in S_i}\ket{v_k}\bra{v_k}\sum_{l\in T_j}\ket{v_l}\bra{v_l}=\sum_{m\in T\cap S}\ket{v_m}\bra{v_m}
+    \end{split}
+    \end{equation}
+    Since the resultant matrix is same for both ways of application of measurement, the projective measurements $\calP$ and $\calQ$ are commutative.
     \end{proof}
 \end{solution}
