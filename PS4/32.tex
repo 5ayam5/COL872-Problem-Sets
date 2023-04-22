@@ -1,9 +1,51 @@
 \begin{solution}{Question x: description}\label{ques:x}
     \begin{question}
-    question
+        Let $\ket{\psi}$ be a pure state, and $\bfP = (\bfP, \bfI - \bfP)$ any projective measurement such that $\trace{\bfP\cdot\ket{\psi}\bra{\psi}} = 1 - \epsilon$. Let $\rho = \ket{\psi}\bra{\psi}$ and $\rho'$ the post-measurement state, conditioned on measurement output being $0$. Show a bound on $||\rho - \rho'||_{tr}$ in terms of $\epsilon$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        The post-measurement state and $\rho'$ can be computed as follows:
+        \begin{equation}
+            \begin{split}
+                \ket{\psi'} &= \frac{\bfP\ket{\psi}}{\sqrt{\trace{\bfP\cdot\ketbra{\psi}}}} = \frac{\bfP\ket{\psi}}{\sqrt{1-\epsilon}}\\
+                \rho' &= \ketbra{\psi'} = \frac{\bfP\ketbra{\psi}\bfP^\dagger}{\trace{\bfP\cdot\ketbra{\psi}}} = \frac{\bfP\rho\bfP}{1-\epsilon}
+            \end{split}
+        \end{equation}
+        Note that the post-measurement state $\rho'$ is also a pure state. We now state and prove the following claim,
+        \begin{claim}
+            For any two pure states, $\ket{\psi}$ and $\ket{\phi}$, we have
+            \begin{equation}
+                ||\ket{\psi}\bra{\psi} - \ket{\phi}\bra{\phi}||_{tr} = \sqrt{1 - |\braket{\psi|\phi}|^2}
+            \end{equation}
+        \end{claim}
+        \begin{proof}
+            Since $\ket{\psi}$ and $\ket{\phi}$ are pure states, we can represent $\ket{\phi}$ as a rotation of $\ket{\psi}$ by some angle $\theta$. Therefore, we can write $\rho_{\psi} - \rho_{\phi}$ as,
+            \begin{equation}
+                \begin{split}
+                    \ketbra{\psi} - \ketbra{\phi} &= \ketbra{\psi} - \left((\cos\theta\ket{\psi} + \sin\theta\ket{\psi^\perp})(\cos\theta\bra{\psi} + \sin\theta\bra{\psi^\perp})\right)\\
+                    &= (1-\cos^2\theta)\ketbra{\psi} - \sin\theta\cos\theta\ketbraa{\psi}{\psi^\perp} - \sin\theta\cos\theta\ketbraa{\psi}{\psi^\perp}\\
+                    &-\sin^2\theta\ketbra{\psi^\perp}
+                \end{split}
+            \end{equation}
+            Now, if we represent this matrix in the $\ket{\psi}, \ket{\psi^\perp}$ basis, we get the eigenvalues as $\sin\theta$ and $-\sin\theta$. Therefore, the trace norm will be,
+            \begin{equation}
+                \begin{split}
+                    ||\rho_{\psi} - \rho_{\phi}||_{tr} &= \sum_i\|\lambda_i|\text{, (trace norm is sum of absolute values of eigenvalues)}\\
+                    &= 2|\sin\theta| = 2\sqrt{1 - \cos^2\theta}\\
+                    &= 2\sqrt{1 - |\braket{\phi|\psi}|^2}
+                \end{split}
+            \end{equation}
+            Hence, we have proven the result of the claim.
+        \end{proof}
+        Now, since we started with a pure state $\ket{\psi}$, the post-measurement state will also be a pure state (conditioned on the output). Therefore, we get the trace distance as,
+        \begin{equation}
+            \begin{split}
+                ||\rho - \rho'||_{tr} &= 2\sqrt{1 - |\braket{\psi|\psi'}|^2}\\
+                &= 2\sqrt{1 - \left|\trace{\bra{\psi}\frac{\bfP\ket{\psi}}{\sqrt{1-\epsilon}}}\right|^2}\\
+                &= 2\sqrt{1 - \left|\trace{\frac{\bfP\ket{\psi}\bra{\psi}}{\sqrt{1-\epsilon}}}\right|^2}\\
+                &= 2\sqrt{1 - \left(\sqrt{1 - \epsilon}\right)^2}\\
+                &= 2\sqrt{\epsilon}
+            \end{split}
+        \end{equation}
     \end{proof}
 \end{solution}
