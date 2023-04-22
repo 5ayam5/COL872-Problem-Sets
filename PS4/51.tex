@@ -31,8 +31,8 @@
             \begin{quantikz}[thin lines]
                 \lstick{$\ket{1}$} & \ctrl{1} & \qw & \rstick{$\ket{1}$}\\
                 \lstick{$\ket{\pi}$} & \gate[wires=3]{\ccommit} & \qw & \rstick{$\ket{\pi_{v_0, v_1},\pi_{v_1, v_2}, \ldots, \pi_{v_{|V|-1},v_0, \bot, \ldots, \bot}}$}\\
-                \lstick{$\ket{r}$} & & \qw & \rstick{$\ket{r}\ket{\mathbf{\bot}}$}\\
-                \lstick{$\ket{\mathbf{0}}$} & & \qw & \rstick{$\ket{\commit(\mathbf{1}; r_{i,j})}_{\{i,j\}\in V\times V}\ket{\bot}$}
+                \lstick{$\ket{r}$} & & \qw & \rstick{$\ket{r}$}\\
+                \lstick{$\ket{\mathbf{0}}$} & & \qw & \rstick{$\ket{\commit(\mathbf{1}; r_{i,j})}_{\{i,j\}\in V\times V}$}
             \end{quantikz}
         \end{center}
         Note that the verifier cannot perform any computation on those registers that contain a $\bot$. This is simply possible in the case of a classical circuit by sending inputs of different sizes, however, since in the case of quantum circuits the input and output sizes are fixed. Since the circuit given has no measurement, it is a unitary of the form:

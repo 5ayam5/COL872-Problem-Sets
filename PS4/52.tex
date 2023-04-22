@@ -1,9 +1,17 @@
-\begin{solution}{Question x: description}\label{ques:x}
+\begin{solution}{Question 5.2}\label{ques:52}
     \begin{question}
-    question
+        Unlike the GI protocol, we cannot say that $p_\psi = 0.5$ for all $\ket{\psi}$. Prove that if $|p_\psi - 0.5|$ is non-negligible, then there exists a q.p.t. algorithm that can break computational hiding property of the commitment scheme.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        Consider a verifier $V^*$ for which $p_\psi = 1/2-\epsilon$ where $\epsilon$ is non-negligible. Intuitively, such a verifier is able to determine if the commitment was for a graph or for a string of all $1$'s and then sends the opposite bit with non-negligible success. We use the following algorithm to break the computational hiding property of the commitment scheme:
+        \protocol{$\calA$ that breaks computational hiding}{Adversary that breaks computational hiding property of the commitment scheme using $V^*$}{52A}{
+            \begin{enumerate}
+                \item $\calA$ samples a random permutation $\pi$ and sets $m_0 = A_{\pi(G)}$. It sets $m_1 = 1^{|A|}$. It forwards these messages to the hiding property challenger $\calC$.
+                \item The adversary forwards the commitment that it receives from the challenger to $\calU_{V^*}$ and receives the bit in register $M_2$. It measures this bit $b'$ and it sends $1-b'$ to the challenger.
+            \end{enumerate}
+        }
+        The interaction between the adversary $\calA$ and the challenger using $\calU_{V^*}$ can be represented as a quantum circuit similar to the circuit given in Question~\ref{ques:51}, with the only difference being that $\ket{r}$ is not sampled by $\calA$ and the commitment is done by $\calC$. Additionally, $\calA$ flips the bit in register $M_2$. Also, the register $S$ corresponds to the bit chosen by the challenger and the CNOT gate corresponds to the check done by the challenger for the adversary's input. Therefore, the winning probability of $\calA$ will be $1/2+\epsilon$.\par
+        Thus, the probability $p_\psi$ must be negligibly close to $1/2$.
     \end{proof}
 \end{solution}
