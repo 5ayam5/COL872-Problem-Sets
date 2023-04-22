@@ -11,7 +11,64 @@
 
     So In both the cases we have no q.p.t that can give a collision and thus claw free function is a collision resistant hash function.
 
-    
-    
+    Now Let us assume that there exist a adversary A that breaks Collapsing property with probability $\rho$ for $\calH$ then a reduction B can finds a collision with prob poly($\rho$).
+
+    Notations:
+    \begin{itemize}
+        \item A Set S which is a subset of the set U($\{0,1\}^{n+1}$) which has the same image over $f_k$ and has size l(for claw-free function l=2).
+        \item Another set V
+        \item A Superposition $\varphi$ over pairs (s,v) $\in S \times V$.
+        \item A Binary Projective Measurement P = \textbf{(P,I-P)}
+    \end{itemize}
+
+    Adversary has two Algorithms $\calA_1$ and $\calA_2$ which are defined as follows:
+
+    $\calA_1$: sends superposition $\varphi$.
+
+    $\calA_2$: applies Measurement P and sends the mixed state obtained and bit b'.\newline
+
+    The Reduction is as follows:
+    \begin{enumerate}
+        \item Challenger C sends a key $k\in \calK$ to B who passes the same to A.
+        \item A applies Algorithm $\calA_1$ and sends superposition $\varphi$ to B.
+        \item B applies projective measurement over $\varphi$ to get a value i and the state $\varphi'$.
+        \item B sends $\varphi'$ to A.
+        \item A applies Algorithm $\calA_2$ over $\varphi'$ and sends b' and the state $\varphi''$ to B. 
+        \item B applies projective measurement over $\varphi$ to get a value j.
+        \item B sends i,j to C.
+        
+    \end{enumerate}
+    We will show that the probability of finding a Collision is $\geq \frac{2}{l-1}\rho^2$
+    Now let us find the probability of finding a Collision, $Pr\Bigr[i,j \in S, i\neq j\Bigr]$.\newline
+
+    We assume $\varphi = \ket{\psi}\bra{\psi}$ for some pure state $\ket{\psi} = \Sigma_{i,v}\alpha_{i,v}\ket{i,v}$\newline
+
+    The Probability of finding i in the first projective measurement is $p_i = $Tr$[(\textbf{I}\otimes \ket{i}\bra{i})\varphi ]$. here $\varphi'$ becomes $\varphi_i := \frac{1}{p_i}(\textbf{I}\otimes \ket{i}\bra{i})\varphi(\textbf{I}\otimes \ket{i}\bra{i})$.\newline
+
+    Now, When Algorithm $\calA_2$ applies P, the resulting mixed state becomes $\varphi'_i = \textbf{P}\varphi\textbf{P} + \textbf{(I-P)}\varphi\textbf{(I-P)}$. On applying projective measurement again, the probability of getting j is Tr$[(\textbf{I}\otimes \ket{j}\bra{j})\varphi'_i ]$. Now summing over all $i\in S$ and $j \in S/\{i\}$, we get the probability of getting distinct $i,j \in S$, which is
+    \begin{equation*}
+    \begin{split}
+        Pr\Bigr[i,j \in S, i\neq j\Bigr] &= \text{Tr}\Bigg[\sum_{i,j\in S, i\neq j} \substack{(\textbf{I}\otimes \ket{j}\bra{j})\textbf{P}(\textbf{I}\otimes \ket{i}\bra{i})\varphi(\textbf{I}\otimes \ket{i}\bra{i})\textbf{P} \\+ (\textbf{I}\otimes \ket{j}\bra{j})\textbf{(I-P)}(\textbf{I}\otimes \ket{i}\bra{i})\varphi(\textbf{I}\otimes \ket{i}\bra{i})\textbf{(I-P)}}\Bigg]\\
+        &= \text{2Tr}\Biggr[\sum_{i,j\in S, i\neq j} (\textbf{I}\otimes \ket{j}\bra{j})\textbf{P}(\textbf{I}\otimes \ket{i}\bra{i})\varphi(\textbf{I}\otimes \ket{i}\bra{i})\textbf{P}\Biggr]\\
+        &= \text{2Tr} \Bigg[\sum\limits_{\substack{i,j\in S, i\neq j \\ v,v'\in V}} \alpha_{i,v}\alpha'_{i,v'}(\textbf{I}\otimes\ket{j}\bra{j})\textbf{P}(\ket{v}\bra{v'}\otimes\ket{i}\bra{i})\textbf{P}\Bigg]\\
+        &= \Bigg[\sum\limits_{\substack{i,j\in S, i\neq j \\ v,v'\in V}} \alpha_{i,v}\alpha'_{i,v'} (\ket{v'}\ket{i})\textbf{P}(\textbf{I}\otimes\ket{j}\bra{j})\textbf{P}(\ket{v}\ket{i})  \Bigg]\\
+        &= \Bigg[\sum\limits_{\substack{i,j\in S, i\neq j \\ v,v',v''\in V}} \alpha_{i,v}\alpha'_{i,v'}\bra{v',i}\textbf{P}\ket{v'',j}\bra{v'',j}\textbf{P}\ket{v,i} \Bigg]
+    \end{split}
+    \end{equation*}
+    Now let's define a vector w as $w_{(i,j,v'')} := \Sigma_v \alpha_{i,v}\bra{v'',j}\textbf{P}\ket{v,i}$ where $i\neq j$, we have \newline Probability = $2 |w^2|$. 
+
+    To find $\rho$, 
+    \begin{equation*}
+        \begin{split}
+            \rho &= \text{Tr}[\textbf{P}\varphi] - \text{Tr}\Bigg[\textbf{P}\sum_{i\in S}(\textbf{I}\otimes \ket{i}\bra{i})\varphi(\textbf{I}\otimes \ket{i}\bra{i})\Bigg]\\
+            &= \Bigg[\sum\limits_{\substack{i,j\in S \\ v,v'\in V}} \alpha_{i,v}\alpha_{j,v'}^\dag \bra{v',i}\textbf{P}\ket{v,j} - \sum\limits_{\substack{i\in S \\ v,v'\in V}} \alpha_{i,v}\alpha_{i,v'}^\dag \bra{v',i}\textbf{P}\ket{v,i}\Bigg]\\
+            &= \Bigg[\sum\limits_{\substack{i,j\in S, i\neq j \\ v,v'\in V}} \alpha_{i,v}\alpha_{j,v'}^\dag \bra{v',i}\textbf{P}\ket{v,j} \Bigg]
+        \end{split}
+    \end{equation*}
+    Now if we define x as vector $x_(i,j,v'') := \alpha_{j,v''}$, we have $\rho = x\cdot w$. Also,
+    \begin{equation*}
+        |x|^2 = \sum\limits_{\substack{i,j\in S,i\neq j \\ v''\in V}} |\alpha_{j,v''}|^2 = \sum\limits_{\substack{j\in S, v''\in V}} (l-1) |\alpha_{j,v''}|^2 = l-1
+    \end{equation*}
+    Therefore, by applying Cauchy-Schwartz Inequality, we have $|w|^2|x|^2 \geq |w\cdot x|^2$
     \end{proof}
 \end{solution}
