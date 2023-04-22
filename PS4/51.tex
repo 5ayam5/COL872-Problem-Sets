@@ -1,9 +1,43 @@
-\begin{solution}{Question x: description}\label{ques:x}
+\begin{solution}{Question 5.1}\label{ques:51}
     \begin{question}
-    question
+        Similar to the graph-isomorphism protocol, construct a unitary $\bfQ$ for Blum’s protocol such that,
+        \begin{equation}
+            \bfQ\ket{\mathbf{0}}\ket{\psi} = \sqrt{p_\psi}\ket{0}\ket{\psi_0} + \sqrt{1-p_\psi}\ket{1}\ket{\psi_1}
+        \end{equation}
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        Since the simulator (and prover) need to handle $M_3$ of different sizes, we define a register state (the register is of $n$ qubits) as $\bot_n$ which corresponds to undefined. This is equivalent to having a register of $n+1$ qubits and the value in the last $n$ registers is valid iff the first qubit is $1$, else all the last $n$ qubits have an invalid value. Now, we define the unitary $\bfQ$ as,
+        \begin{center}
+            \begin{quantikz}[thin lines]
+                \lstick{$\ket{0}_S$} & \gate{H} & \ctrl{1} & \qw & \targ{} & \qw\\
+                \lstick{$\ket{\mathbf{0}}_{M_3}$} & \gate{\mathsf{Perm}} & \gate[wires=3]{\ccommit} & \qw & \qw & \qw\\
+                \lstick{$\ket{\mathbf{0}}_{M_3}$} & \gate{\mathsf{Rand}} & & \qw & \qw & \qw\\
+                \lstick{$\ket{\mathbf{0}}_{M_1}$} & \qw & & \gate[wires=3]{\calU_V} & \ctrl{-3} & \qw\\
+                \lstick{$\ket{0}_{M_2}$} & \qw & \qw & & \qw & \qw\\
+                \lstick{$\ket{\psi}_Z$} & \qw & \qw & & \qw & \qw
+            \end{quantikz}
+        \end{center}
+        Here, $H$ is the Hadamard gate, $\mathsf{Perm}$ creates a uniform superposition of all permutations on graph $G$ with $n$ vertices, $\mathsf{Rand}$ creates a uniform superposition for the randomness used by the commitment scheme (is effectively a Hadamard gate of appropriate size). The operator $\ccommit$ takes in a control bit and two inputs (the message and the randomness) and stores the output in the third register. Depending on the control bit, it works as follows,
+        \begin{center}
+            \begin{quantikz}[thin lines]
+                \lstick{$\ket{0}$} & \ctrl{1} & \qw & \rstick{$\ket{0}$}\\
+                \lstick{$\ket{\pi}$} & \gate[wires=3]{\ccommit} & \qw & \rstick{$\ket{\pi}$}\\
+                \lstick{$\ket{r}$} & & \qw & \rstick{$\ket{r}$}\\
+                \lstick{$\ket{\mathbf{0}}$} & & \qw & \rstick{$\ket{\commit(A_H[i,j]; r_{i,j})}_{\{i,j\}\in V\times V}$}
+            \end{quantikz}
+        \end{center}
+        \begin{center}
+            \begin{quantikz}[thin lines]
+                \lstick{$\ket{1}$} & \ctrl{1} & \qw & \rstick{$\ket{1}$}\\
+                \lstick{$\ket{\pi}$} & \gate[wires=3]{\ccommit} & \qw & \rstick{$\ket{\pi_{v_0, v_1},\pi_{v_1, v_2}, \ldots, \pi_{v_{|V|-1},v_0, \bot, \ldots, \bot}}$}\\
+                \lstick{$\ket{r}$} & & \qw & \rstick{$\ket{r}\ket{\mathbf{\bot}}$}\\
+                \lstick{$\ket{\mathbf{0}}$} & & \qw & \rstick{$\ket{\commit(\mathbf{1}; r_{i,j})}_{\{i,j\}\in V\times V}\ket{\bot}$}
+            \end{quantikz}
+        \end{center}
+        Note that the verifier cannot perform any computation on those registers that contain a $\bot$. This is simply possible in the case of a classical circuit by sending inputs of different sizes, however, since in the case of quantum circuits the input and output sizes are fixed. Since the circuit given has no measurement, it is a unitary of the form:
+        \begin{equation}
+            \bfQ\ket{\mathbf{0}}\ket{\psi} = \sqrt{p_\psi}\ket{0}_S\ket{\psi_0} + \sqrt{1-p_\psi}\ket{1}_S\ket{\psi_1}
+        \end{equation}
     \end{proof}
 \end{solution}
