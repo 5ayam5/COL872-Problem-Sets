@@ -1,9 +1,9 @@
 \begin{solution}{Question x: description}\label{ques:x}
     \begin{question}
-    question
+        Show that if two states $\rho$, $\rho'$ satisfy $||\rho - \rho'||_{tr} \leq \epsilon$, then for any unitary matrix $\bfU$, $||\bfU\cdot\rho\cdot\bfU^\dagger - \bfU\cdot\rho'\cdot\bfU^\dagger||_{tr} \leq \epsilon$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        Since any unitary matrix is just a change of basis matrix, it does not change the eigenvalues of any matrix. Hence, the trace distance does not change since it is the sum of absolute values of the eigen values. Also, $\bfU\cdot\rho\cdot\bfU^\dagger$ is the density matrix corresponding to the the density matrix in the changed basis wrt $\bfU$. Therefore, the given inequality in the question holds.
     \end{proof}
 \end{solution}
