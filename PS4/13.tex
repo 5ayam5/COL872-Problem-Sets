@@ -1,10 +1,38 @@
-\begin{solution}{Question 1.3}\label{ques:x}
+\begin{solution}{Question 1.3}\label{ques:13}
     \begin{question}
     Is this the only case in which projective measurements are commutative? Prove or disprove.
     \end{question}
     \tcblower{}
     \begin{proof}
-    Using the same notation as in Question 1.2\ref{ques:12}. Let us define another orthonormal basis for $\C^n$ as 
-    $\{\ket{\bfu_i}\}_i$ 
+    Using the same notation as in Question 1.2\ref{ques:12}. Let us define another orthonormal basis for $\C^n$ as $\ket{\bfu_i}\ = \sum_p \alpha_{ip}\ket{\bfv_p}$. Let us represent $\bfQ_j$ in $\{\ket{\bfu_i}\}_i$ basis and $\bfP_j$ in $\{\ket{\bfv_i}\}_i$ basis. Therefore, $\bfQ_j \bfP_i$ can be written as:
+    \begin{equation}
+        \begin{split}
+            \bfQ_j\bfP_i &= \sum_{l\in T_j}\ket{u_l}\bra{u_l} \sum_{k\in S_i}\ketbra{v_k} \\ 
+            &=\left( \sum_{l\in T_j}\sum_{p}\alpha^2_{lp}\ketbra{v_p} \right) \left( \sum_{k\in S_i} \ketbra{v_k} \right)\\
+            &= \sum_{l\in T_j}\sum_{k\in S_i} \left( \left(\sum_{p}\alpha^2_{lp}\ketbra{v_p} \right) \ketbra{v_k} \right)\\
+            &= \sum_{l\in T_j} \sum_{k\in S_i}\alpha^2_{lk}\ketbra{v_k} \texttt{ 
+        ($\because \braket{v_p|v_k}=0$ if $p\neq k$ since orthogonal)}
+        \end{split}
+    \end{equation}
+    Similarly, let $\bfP_i$ be represented in $\{\ket{\bfu_i}\}_i$ basis instead. Then, $\bfP_i\bfQ_j$ can be written as:
+    \begin{equation}
+        \begin{split}
+            \bfP_i\bfQ_j &= \sum_{k\in S_i}\ket{u_k}\bra{u_k} \sum_{l\in T_j}\ketbra{v_l} \\ 
+            &= \sum_{l\in T_j} \sum_{k\in S_i}\alpha^2_{kl}\ketbra{v_l}
+        \end{split}
+    \end{equation}
+    In the case $\bfQ_j\bfP_i = \bfP_i\bfQ_j$, following can be noted:
+    \begin{equation}
+        \forall x\in S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = \sum_{k\in S_i}\alpha^2_{kx}
+    \end{equation}
+    And,
+    \begin{equation}
+        \begin{split}
+            &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = 0 = \sum_{k\in S_i}\alpha^2_{kx}\\
+            &\implies \forall l\in T_j, k \in S_i \text{ : } \alpha_{lx} = 0 =\alpha_{kx}
+        \end{split}
+    \end{equation}
+
+    I forgot aage ka logic
     \end{proof}
 \end{solution}
