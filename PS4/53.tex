@@ -1,9 +1,28 @@
-\begin{solution}{Question x: description}\label{ques:x}
+\begin{solution}{Question x: description}\label{ques:53}
     \begin{question}
-    question
+        Use the above to prove that the simulator's output is computationally indistinguishable from the verifier’s view in the real-world.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        Since $|p_\psi - 0.5|$ is negligible, we can bound the value of $p_\psi$ between $1/2-\mu$ and $1/2+\mu$ where $\mu$ is negligible. Now, consider the following alternating projections on the starting state $\ket{\mathbf{0}}\ket{\psi}$ (we assume that $\psi_b$ is a qubit of $n$ bits and $\psi$ is of $m$ bits),
+        \begin{equation}
+            \begin{split}
+                \bfdelta &= \left(\bfdelta_0 = \ketbra{\mathbf{0}}\otimes\bfI_m, \bfI - \bfdelta_0\right)\\
+                \bfpi &= \left(\bfpi_0 = \bfQ^\dagger\cdot(\ketbra{0}\otimes \bfI_n)\cdot\bfQ, \bfI - \bfpi_0\right)
+            \end{split}
+        \end{equation}
+        Now, consider the $t$ invariant sub-spaces $\{S_j\}_{j\in[t]}$ for $\bfpi, \bfdelta$. Note that $\ket{\mathbf{0}}\ket{\psi}$ is an eigenvector for $\bfdelta$ with eigenvalue $1$. Thus, after applying $\bfdelta$ we will either get $\ket{\psi'} = \ket{\mathbf{0}}\ket{\psi}$ or $\ket{\psi'^\perp}$ irrespective of which sub-space we are in. And since $p_\psi$ is lower-bounded by $1/2-\mu$, the probability of getting state $\ket{0}\ket{\psi_0}$ on applying $\bfpi\cdot\bfdelta$ is at least $1/2-\mu$ for any of the sub-spaces. On applying $\bfdelta\cdot\bfpi\cdot\bfdelta$ (assuming that we don't get a $0$ on applying $\bfpi$), we will get $\ket{\psi'}$ with probability at least $(1/2-\mu)\cdot(1/2-\mu) = (1/2-\mu)^2$ (again assuming the lower bound). Therefore, we can consider the transition probabilities to all be $1/2-\mu$ (since it is the lower bound for all transitions). Note that in the above analysis, we treat each sub-space independently and show a bound on the transition probability. Thus, the probability of success after $n$ rounds can be given by $p_n$, we get the following recurrence,
+        \begin{equation}
+            \begin{split}
+                p_1 &\geq \frac{1}{2}-\mu\\
+                p_n &\geq p_{n-1} + (1-p_{n-1})\cdot\left(\frac{1}{2}-\mu\right)\\
+                &= \frac{p_{n-1}}{2} + \frac{1}{2} - \mu(1 - p_{n-1})\\
+                &\geq \frac{p_{n-1} + (1 - 2\mu)}{2}\\
+                \text{On solving the}&\text{ recurrence, we get}\\
+                p_n &\geq (1 - 2\mu)\cdot\left(1 - \frac{1}{2^{n-1}}\right)\\
+                    &= 1 - \mu'
+            \end{split}
+        \end{equation}
     \end{proof}
+    Therefore, after a polynomial number of rounds, the simulator will succeed with probability close to $1$.
 \end{solution}
