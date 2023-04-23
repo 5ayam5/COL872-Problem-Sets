@@ -14,11 +14,11 @@
         ($\because \braket{v_p|v_k}=0$ if $p\neq k$ since orthogonal)}
         \end{split}
     \end{equation}
-    Similarly, let $\bfP_i$ be represented in $\{\ket{\bfu_i}\}_i$ basis instead. Then, $\bfP_i\bfQ_j$ can be written as:
+    Similarly, $\bfP_i\bfQ_j$ can be written as:
     \begin{equation}
         \begin{split}
-            \bfP_i\bfQ_j &= \sum_{k\in S_i}\ket{u_k}\bra{u_k} \sum_{l\in T_j}\ketbra{v_l} \\ 
-            &= \sum_{l\in T_j} \sum_{k\in S_i}\alpha^2_{kl}\ketbra{v_l}
+            \bfP_i\bfQ_j &= \sum_{k\in S_i}\ketbra{v_k} \sum_{l\in T_j}\ket{u_l}\bra{u_l}  \\ 
+            &= \sum_{k\in S_i}\sum_{l\in T_j} \alpha^2_{kl}\ketbra{v_k}
         \end{split}
     \end{equation}
     In the case $\bfQ_j\bfP_i = \bfP_i\bfQ_j$, following can be noted:
