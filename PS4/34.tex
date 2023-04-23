@@ -1,9 +1,18 @@
-\begin{solution}{Question x: description}\label{ques:x}
+\begin{solution}{Question x: description}\label{ques:34}
     \begin{question}
-    question
+        Using the gentle measurement lemma, give an alternate proof for Question~\ref{ques:31}.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        Consider the partial measurement $\bfdelta_0\cdot\bfU_0$ followed by the application of the unitary $\bfU_1\cdot\bfU_0^\dagger$. The probability of success (over all input states by the prover) for the partial measurement is $p_0$. Therefore, the trace distance between directly applying $\bfU_1$ and applying $\bfU_1\bfU_0^\dagger\bfdelta_0\bfU_0$ will be atmost $2\sqrt{1-p_0}$ from the proofs of Question~\ref{ques:32} and Question~\ref{ques:33}. Now, on applying $\bfdelta_1$ to the modified state, we will see a $1$ with probability at least $p_1 - \sqrt{1-p_0}$, since half of the trace distance is the maximum probability with with any projective measurement can distinguish between the two states and $p_1$ is the probability of seeing a $1$ in the case of no application of $\bfdelta_0$. Now, we obtain the probability of the extractor as,
+        \begin{equation}
+            \begin{split}
+                p'_{ext} &= p_0\cdot(p_1 - \sqrt{1-p_0})\\
+                &= p_0\cdot(1 + 2\epsilon - \sqrt{1 - p_0})\\
+                &\geq 2\epsilon\cdot(1 + 2\epsilon - \sqrt{1 - 2\epsilon})\text{, substituting }p_0 = 2\epsilon\\
+                &\geq \calO(\epsilon^2)
+            \end{split}
+        \end{equation}
+        Therefore, the success probability of the extractor is a polynomial in $\epsilon$.
     \end{proof}
 \end{solution}
