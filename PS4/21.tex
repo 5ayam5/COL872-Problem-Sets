@@ -69,6 +69,8 @@
     \begin{equation*}
         |x|^2 = \sum\limits_{\substack{i,j\in S,i\neq j \\ v''\in V}} |\alpha_{j,v''}|^2 = \sum\limits_{\substack{j\in S, v''\in V}} (l-1) |\alpha_{j,v''}|^2 = l-1
     \end{equation*}
-    Therefore, by applying Cauchy-Schwartz Inequality, we have $|w|^2|x|^2 \geq |w\cdot x|^2$
+    Therefore, by applying Cauchy-Schwartz Inequality, we have $|w|^2|x|^2 \geq |w\cdot x|^2$. From this we get the required probability for finding a Collision.
+
+    Now as we know via security of claw-free function, no q.p.t adversary can find a collision, the probability of finding a collision is negligible and from this we can say that for the case of claw-free function,an adversary can break Collapsing property with only negligible probability and thus $\{H_k \equiv f_k\}_{k\in K}$ is a collapsing hash function.
     \end{proof}
 \end{solution}

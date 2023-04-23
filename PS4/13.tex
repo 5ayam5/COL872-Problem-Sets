@@ -27,12 +27,20 @@
     \end{equation}
     And,
     \begin{equation}
+        \label{eq:9}
         \begin{split}
             &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = 0 = \sum_{k\in S_i}\alpha^2_{kx}\\
             &\implies \forall l\in T_j, k \in S_i \text{ : } \alpha_{lx} = 0 =\alpha_{kx}
         \end{split}
     \end{equation}
-
-    I forgot aage ka logic
+    Also, since $\alpha_{\_x} = 0$ $\forall x$ following condition in \ref{eq:9}, we can say:
+    \begin{equation}
+        \begin{split}
+            &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\forall y \in S_i\cup T_j \text{ : } \alpha_{yx} = 0
+        \end{split}
+    \end{equation}
+    Hence for any $\alpha_{yx} \neq 0$, $x=y$ else above condition will hold and $x,y \in S_i \cap T_j$. Since thi is true for any set $S_i, T_j$, for every $\ket{v_n}$ the value of $\alpha_{n,n} = 1$ since there will exist a pair $S_i, T_j$ where that particular $x,y$ both wont lie in the intersection. But this would make $\ket{u_n}=\ket{v_n}$. Hence $\bfQ_j\bfP_i = \bfQ_j\bfP_i$ when $\{\ket{\bfu_i}\}_i = \{\ket{\bfv_i}\}_i$. \\
+    
+    Therefore for two projective measurements to be commutative, both should be described using the same orthonormal basis for $\C^n$ and their partion sets should partion $[N]$
     \end{proof}
 \end{solution}

@@ -4,6 +4,57 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+    Let us begin by defining $\ket{\psi_0} = U_0\ket{\psi}$. Now, $p_b = \bra{\psi_b}\Delta_b\Delta_b\ket{\psi_b}$.
+
+    We can say that Prob. of seeing a accept in both $\geq$ prob of seeing accept in first measurement $\times$ prob. of seeing accept in second measurement given an accept in first measurement,i.e.,
+    \[p'_{ext}\geq p_0\cdot p_{1|0}\].
+
+    Now we can write state $\ket{\psi_b}$ as split between two states: One which gives the measurement and the second which is perpendicular to the measurement basis. In this way $\ket{\psi_b}$ can be written as 
+    \begin{equation}
+        \ket{\psi_b} = \sqrt{p_b}\ket{w_b}\ket{v_b} + \sqrt{1-p_b}\ket{w_b^\perp}
+    \end{equation}
+
+    Here $\ket{w_b^\perp}$ may not necessarily have a physical significance. $\ket{w_b}$ contains the first n qubits of the state which take part in the measurement(according to the dimension of \textbf{I}) and $\ket{v_b}$ is the remaining state when measurement is done on first n bits.
+
+    Also $\|\bra{v_b}\bra{w_b}\ket{w_b^\perp}\|^2 =0$ 
+
+    From here, we can define $p_b$ as $p_b = \bra{\psi_b}\ket{w_b}\bra{w_b}\ket{\psi_b}$ as all the other registers are not used in the measurement.
+
+    Now let us define $\ket{\widetilde{\psi}_0}$ as the state after the $\ket{\psi_0}$ is measured in the computational basis is performed on first n qubits and will be $\ket{\widetilde{\psi}_0} = \ket{w_b}\ket{v_b}$ and define $\ket{\widetilde{\psi}_1} = U_1U_0^\dag\ket{\widetilde{\psi}_0}$ before applying the second measurement. We have,
+
+    \begin{equation*}
+        \begin{split}
+            \ket{\widetilde{\psi}_1} &= U_1U_0^\dag\ket{\widetilde{\psi}_0}\\
+            &=U_1U_0^\dag\ket{w_b}\ket{v_b}\\
+            &=U_1\Bigg(U_0^\dag\frac{\ket{\psi_0}}{\sqrt{p_0}} - U_0^\dag\sqrt{\frac{1-p_0}{p_0}}\ket{w_0^\perp} \Bigg)\\
+            &=U_1\frac{\ket{\psi}}{\sqrt{p_0}}-U_1U_0^\dag\sqrt{\frac{1-p_0}{p_0}}\ket{w_0^\perp}\\
+            &= \frac{\ket{\psi_1}}{\sqrt{p_0}}-U_1U_0^\dag\sqrt{\frac{1-p_0}{p_0}}\ket{w_0^\perp}\\
+            &= \frac{1}{\sqrt{p_0}}\bigg(\sqrt{p_1}\ket{w_1}\ket{v_1} + \sqrt{1-p_1}\ket{w_1^\perp}- U_1U_0^\dag\sqrt{1-p_0}\ket{w_0^\perp} \bigg)
+        \end{split}
+    \end{equation*}
+
+    Where we use the Equation 11 and the definitions of $U_0$ and $U_1$. \newline
+
+    Now we apply measurement of $\ket{\widetilde{\psi}_1}$. As we are trying to find a lower bound, probability to see accept is minimized when $U_1U_0^\dag\ket{w_0^\perp} = \ket{w_1}\ket{v_1}$. From here, it follows that 
+    \begin{equation*}
+        \begin{split}
+            p_{1|0} &=  \bra{\widetilde{\psi}_1}\ket{w_1}\bra{w_1}\ket{\widetilde{\psi}_1}\\
+            &\geq\frac{1}{p_0}\bigg(\sqrt{p_1}-\sqrt{1-p_0}\bigg)^2\\
+            &=\geq\frac{1}{p_0}\bigg(\sqrt{p_1}-\sqrt{p_1-\varepsilon}\bigg)^2\\
+            &\geq \frac{\varepsilon^2}{4p_0}
+        \end{split}
+    \end{equation*}
+
+    Therefore $p'_{ext}\geq p_0\cdot p_{1|0} \geq \frac{\varepsilon^2}{4}$\newline
+
+Reference :  Claude Crépeau, Louis Salvail, Jean-Raymond Simard, and Alain Tapp. Two Provers in Isolation. In Dong Hoon Lee and Xiaoyun Wang, editors, Advances in Cryptology - ASIACRYPT 2011 - 17th International Conference on the Theory and Application of Cryptology and Information Security, Seoul, South Korea, December 4-8, 2011. Proceedings, volume 7073 of Lecture Notes in Computer Science, pages 407–430, 2011.
+
+    
+
+
+
+
+
+    
     \end{proof}
 \end{solution}
