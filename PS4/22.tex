@@ -5,9 +5,84 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-    We can define the hast function family $\calH'$ as 
+    We can define the hash function family $\calH'$ as 
     \[\calH' = \{\calH'_k : \calH'_k \equiv f_k(x,(f_k(y,z))), x,y \in \{0,1\}, z \in \{0,1\}^n \}\]
 
+    We have to show the collapsing property, We will show this via Hybrids:\newline
+
+    In all the Worlds, Adversary sends $\psi = \sum\limits_{\substack{x,y,z\\ f_k(x,f_k(y,z)) = h}} \ket{x,y,z}$.
     
+    \textbf{\underline{World-0:}}
+
+    \begin{enumerate}
+        \item Adversary gets back $\psi$ from the challenger.
+    \end{enumerate}
+
+    \textbf{\underline{Hybrid-0:}}
+
+    \begin{enumerate}
+        \item Adversary gets back $\psi$ measured at $x=x'$ from the challenger, \newline $\psi =\sum\limits_{\substack{y,z\\ f_k(x',f_k(y,z)) = h}} \ket{x',y,z}$.
+    \end{enumerate}
+
+    \textbf{\underline{Hybrid-1:}}
+
+    \begin{enumerate}
+        \item Adversary gets back $\psi$ measured at $x=x',y=y'$ from the challenger, \newline $\psi =\sum\limits_{\substack{z\\ f_k(x',f_k(y',z)) = h}} \ket{x',y',z}$.
+    \end{enumerate}
+
+    \textbf{\underline{World-1:}}
+
+    \begin{enumerate}
+        \item Adversary gets back $\psi$ measured at $x=x',y=y', z=z'$ from the challenger, \newline $\psi = \ket{x',y',z'}; f_k(x',f_k(y',z')) = h$.
+    \end{enumerate}
+
+    \begin{claim}
+    World-0 and Hybrid-0 are Computationally indistinguishable.
+    \end{claim}
+    \begin{proof}
+        Let us assume The worlds are far apart, If an adversary can distinguish, from this we can have a reduction that breaks the collapsing property of $f_k$.
+
+        Reduction:
+        \begin{enumerate}
+            \item Challenger sends key k to reduction B which is passed on to Adversary A.
+            \item A sends state $\psi = \sum\limits_{\substack{x,y,z\\ f_k(x,f_k(y,z)) = h}} \ket{x,y,z}$ to B.
+            \item B applies $f_k$ to get $\sum\limits_{\substack{x,y,z\\ f_k(x,f_k(y,z)) = h}}\ket{x,y,z}\ket{f_k(y,z)}$ and sends first part of  $\sum\limits_{\substack{x,y,z\\ f_k(x,f_k(y,z)) = h}}\ket{x}\ket{f_k(y,z)}\otimes\ket{y,z}$ to Challenger C.
+            \item C chooses bit b and accordingly sends $\ket{\varphi}$ to B.
+            \item B un-entangles register containing result of $f_k$ application and sends the x,y,z registers to A where x can be measured or not depending upon bit b.
+            \item A sends it's guess b' to B who passes the same to C.
+        \end{enumerate}
+
+        Now in the case when b=0, the reduction acts like World-0 and when b=1, behaves like Hybrid-0. Now if A is able to win with non-negligible probability then B can also win with a non-negligible probability.
+
+    \end{proof}
+    \begin{claim}
+    Hybrid-0 and Hybrid-1 are Computationally indistinguishable.
+    \end{claim}
+    \begin{proof}
+        Let us assume The worlds are far apart, If an adversary can distinguish, from this we can have a reduction that breaks the collapsing property of $f_k$.
+
+        Reduction:
+        \begin{enumerate}
+            \item Challenger sends key k to reduction B which is passed on to Adversary A.
+            \item A sends state $\psi = \sum\limits_{\substack{x,y,z\\ f_k(x,f_k(y,z)) = h}} \ket{x,y,z}$ to B.
+            \item B measures register x to get $x=x'$ and sends  $\sum\limits_{\substack{y,z\\ f_k(x',f_k(y,z)) = h}}\ket{y,z}$ to Challenger C.
+            \item C chooses bit b and accordingly sends $\ket{\varphi}$ to B.
+            \item B sends the x,y,z registers to A where $x=x'$ and y can be measured or not depending upon bit b.
+            \item A sends it's guess b' to B who passes the same to C.
+        \end{enumerate}
+
+        Now in the case when b=0, the reduction acts like Hybrid-0 and when b=1, behaves like Hybrid-1. Now if A is able to win with non-negligible probability then B can also win with a non-negligible probability.
+
+    \end{proof}
+
+    \begin{claim}
+    Hybrid-1 and World-1 are Computationally indistinguishable.
+    \end{claim}
+
+    \begin{proof}
+        In both the worlds, we have measured the first 2 bits x and y. According to the definition of claw-free function, For a fixed starting bit, the function acts like a injection and therefore the superposition will contain a single element and the $\psi$ will be identical for both the worlds which is indistinguishable as identical qubits are indistinguishable.
+    \end{proof}
+
+    Fro the above three claims we can say that the words World-0 and World-1 are Computationally indistinguishable. From this we can infer the fact that $\calH'$ is collapsing.
     \end{proof}
 \end{solution}
