@@ -7,39 +7,47 @@
     Using the same notation as in Question 1.2\ref{ques:12}. Let us define another orthonormal basis for $\C^n$ as $\ket{\bfu_i}\ = \sum_p \alpha_{ip}\ket{\bfv_p}$. Let us represent $\bfQ_j$ in $\{\ket{\bfu_i}\}_i$ basis and $\bfP_j$ in $\{\ket{\bfv_i}\}_i$ basis. Therefore, $\bfQ_j \bfP_i$ can be written as:
     \begin{equation}
         \begin{split}
-            \bfQ_j\bfP_i &= \sum_{l\in T_j}\ket{u_l}\bra{u_l} \sum_{k\in S_i}\ketbra{v_k} \\ 
-            &=\left( \sum_{l\in T_j}\sum_{p}\alpha^2_{lp}\ketbra{v_p} \right) \left( \sum_{k\in S_i} \ketbra{v_k} \right)\\
-            &= \sum_{l\in T_j}\sum_{k\in S_i} \left( \left(\sum_{p}\alpha^2_{lp}\ketbra{v_p} \right) \ketbra{v_k} \right)\\
-            &= \sum_{l\in T_j} \sum_{k\in S_i}\alpha^2_{lk}\ketbra{v_k} \texttt{ 
-        ($\because \braket{v_p|v_k}=0$ if $p\neq k$ since orthogonal)}
+            \bfQ_j\bfP_i &= \sum_{l\in T_j}\ket{u_l}\bra{u_l} \sum_{k\in S_i}\ketbra{v_k} \\
+            &=\left( \sum_{l\in T_j} \left( \sum_{p\in[N]}\sum_{q\in[N]}\alpha_{lp}\alpha_{lq}\ketbraa{v_p}{v_q}\right) \right) \left( \sum_{k\in S_i} \ketbra{v_k} \right)\\
+            &= \sum_{l\in T_j}\sum_{k\in S_i} \left( \left( \sum_{p\in[N]}\sum_{q\in[N]}\alpha_{lp}\alpha_{lq}\ketbraa{v_p}{v_q} \right) \ketbra{v_k} \right)\\
+            &= \sum_{l\in T_j} \sum_{k\in S_i} \sum_{p\in [N]} \alpha_{lp}\alpha_{lk}\ketbraa{v_p}{v_k} \texttt{ 
+        ($\because \braket{v_q|v_k}=0$ if $q\neq k$ since orthogonal)}
         \end{split}
     \end{equation}
     Similarly, $\bfP_i\bfQ_j$ can be written as:
     \begin{equation}
         \begin{split}
-            \bfP_i\bfQ_j &= \sum_{k\in S_i}\ketbra{v_k} \sum_{l\in T_j}\ket{u_l}\bra{u_l}  \\ 
-            &= \sum_{k\in S_i}\sum_{l\in T_j} \alpha^2_{kl}\ketbra{v_k}
+            \bfP_i\bfQ_j &= \sum_{k\in S_i}\ketbra{v_k} \sum_{l\in T_j}\ket{u_l}\bra{u_l}  \\
+            &=\sum_{k\in S_i}\ketbra{v_k} \left(\sum_{l\in T_j} \left( \sum_{p\in[N]}\sum_{q\in[N]}\alpha_{lp}\alpha_{lq}\ketbraa{v_p}{v_q}\right) \right)\\
+            &= \sum_{l\in T_j}\sum_{k\in S_i} \left( \ketbra{v_k} \left( \sum_{p\in[N]}\sum_{q\in[N]}\alpha_{lp}\alpha_{lq}\ketbraa{v_p}{v_q} \right) \right)\\
+            &= \sum_{l\in T_j} \sum_{k\in S_i} \sum_{q\in [N]} \alpha_{lk}\alpha_{lq}\ketbraa{v_k}{v_q} \texttt{ 
+        ($\because \braket{v_k|v_p}=0$ if $p\neq k$ since orthogonal)}\\
+            &= \sum_{l\in T_j} \sum_{k\in S_i} \sum_{p\in [N]} \alpha_{lk}\alpha_{lp}\ketbraa{v_k}{v_p}
         \end{split}
     \end{equation}
-    In the case $\bfQ_j\bfP_i = \bfP_i\bfQ_j$, following can be noted:
+    Now, if $\bfQ_j\bfP_i = \bfP_i\bfQ_j$, from the values of the two compound projections, it is easy to see that they are Hermitian (and infact symmetric since none of the $\alpha_{ij}$ are non-real). We also have the following,
     \begin{equation}
-        \forall x\in S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = \sum_{k\in S_i}\alpha^2_{kx}
+        \forall k \in S_i : \forall p \in [N]\setminus S_i: \sum_{l\in T_j}\alpha_{lk}\alpha_{lp} = 0
     \end{equation}
-    And,
-    \begin{equation}
-        \label{eq:9}
-        \begin{split}
-            &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = 0 = \sum_{k\in S_i}\alpha^2_{kx}\\
-            &\implies \forall l\in T_j, k \in S_i \text{ : } \alpha_{lx} = 0 =\alpha_{kx}
-        \end{split}
-    \end{equation}
-    Also, since $\alpha_{\_x} = 0$ $\forall x$ following condition in \ref{eq:9}, we can say:
-    \begin{equation}
-        \begin{split}
-            &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\forall y \in S_i\cup T_j \text{ : } \alpha_{yx} = 0
-        \end{split}
-    \end{equation}
-    Hence for any $\alpha_{yx} \neq 0$, $x=y$ else above condition will hold and $x,y \in S_i \cap T_j$. Since thi is true for any set $S_i, T_j$, for every $\ket{v_n}$ the value of $\alpha_{n,n} = 1$ since there will exist a pair $S_i, T_j$ where that particular $x,y$ both wont lie in the intersection. But this would make $\ket{u_n}=\ket{v_n}$. Hence $\bfQ_j\bfP_i = \bfQ_j\bfP_i$ when $\{\ket{\bfu_i}\}_i = \{\ket{\bfv_i}\}_i$. \\
+    Since this is true for all $i\in [s]$ and $j\in [t]$ (and using the fact that $\sum_j \alpha^2_{ij} = 1$), we get that the matrix formed by $\alpha_{ij}$ is a permutation matrix.
+    % \begin{equation}
+    %     \forall x\in S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = \sum_{k\in S_i}\alpha^2_{kx}
+    % \end{equation}
+    % And,
+    % \begin{equation}
+    %     \label{eq:9}
+    %     \begin{split}
+    %         &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\sum_{l\in T_j}\alpha^2_{lx} = 0 = \sum_{k\in S_i}\alpha^2_{kx}\\
+    %         &\implies \forall l\in T_j, k \in S_i \text{ : } \alpha_{lx} = 0 =\alpha_{kx}
+    %     \end{split}
+    % \end{equation}
+    % Also, since $\alpha_{\_x} = 0$ $\forall x$ following condition in \ref{eq:9}, we can say:
+    % \begin{equation}
+    %     \begin{split}
+    %         &\forall x\in S_i\cup T_j \setminus S_i\cap T_j \text{ : }\forall y \in S_i\cup T_j \text{ : } \alpha_{yx} = 0
+    %     \end{split}
+    % \end{equation}
+    % Hence for any $\alpha_{yx} \neq 0$, $x=y$ else above condition will hold and $x,y \in S_i \cap T_j$. Since thi is true for any set $S_i, T_j$, for every $\ket{v_n}$ the value of $\alpha_{n,n} = 1$ since there will exist a pair $S_i, T_j$ where that particular $x,y$ both wont lie in the intersection. But this would make $\ket{u_n}=\ket{v_n}$. Hence $\bfQ_j\bfP_i = \bfQ_j\bfP_i$ when $\{\ket{\bfu_i}\}_i = \{\ket{\bfv_i}\}_i$. \\
     
     Therefore for two projective measurements to be commutative, both should be described using the same orthonormal basis for $\C^n$ and their partion sets should partion $[N]$
     \end{proof}
