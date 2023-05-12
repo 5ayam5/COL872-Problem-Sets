@@ -1,0 +1,24 @@
+\begin{solution}{Universal Cloning}\label{ques:x}
+    \begin{question}
+    Consider the following quantum process: it maps $\alpha \ket{0}+\beta\ket{1}$ to $\alpha \ket{0}\ket{0}+\beta\ket{1}\ket{1}$. Is T p-good for some constant p?
+    \end{question}
+    \tcblower{}
+    \begin{proof}
+    We know that T converts a pure state to another pure state. So Application of T on the density matrix $\braket{\psi}{\psi}$ will give the density matrix of another pure state.
+
+    For a state to be p-good,
+    \[|\bra{\psi}\bra{\psi}\cdot T(\ketbra{\psi})\cdot\ket{\psi}\ket{\psi}|\geq p\]
+
+    For $\ket{\psi} = \alpha \ket{0}+\beta\ket{1}$,
+
+    we have LHS as 
+
+    $\alpha^2\bra{0}\bra{0}+\alpha\beta(\bra{0}\bra{1}+\bra{1}\bra{0})+\beta^2 \bra{1}\bra{1}\cdot T(\ketbra{\psi}) \cdot \alpha^2\ket{0}\ket{0}+\alpha\beta(\ket{0}\ket{1}+\ket{1}\ket{0})+\beta^2 \ket{1}\ket{1}$
+
+    where,
+    $T(\ketbra{\psi}) = (\alpha \ket{0}\ket{0}+\beta\ket{1}\ket{1})(\alpha' \bra{0}\bra{0}+\beta'\bra{1}\bra{1})$\newline
+
+    then the LHS becomes $(\alpha^3+\beta^3)(\alpha'\alpha^2+\beta'\beta^2)$
+    \end{proof}
+\end{solution}
+ 
