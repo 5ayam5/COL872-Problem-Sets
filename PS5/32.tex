@@ -5,7 +5,31 @@ in part 3.1.
     \end{question}
     \tcblower{}
     \begin{proof}
+    Let us find the probability to fool the bank in the cases when qubit is $\ket{0} \& \ket{+}$. the other two cases follow from it.
+
+    When qubit is $\ket{0}$,
+
+    After applying the unitary and discarding the first qubit, we get $\frac{\ket{01}+\ket{10}}{\sqrt{2}}$ with probability $\frac{1}{6}$ and $\frac{3\ket{00}+\ket{11}}{\sqrt{10}}$ with probability $\frac{5}{6}$.
     
+    From here the chance of the strategy succeeding $=\frac{1}{6}\times 0 + \frac{5}{6}\times\frac{9}{10} = \frac{3}{4}$.
+
+    Similarly the probability for $\ket{1}$ is also $\frac{3}{4}$.\newline
+
+    Now when qubit is $\ket{+}$,
+
+    After applying the unitary and discarding the first qubit, we get $\frac{3\ket{00}+\ket{01}+\ket{10}+\ket{11}}{\sqrt{12}}$ with probability $\frac{1}{2}$ and $\frac{\ket{00}+\ket{01}+\ket{10}+3\ket{11}}{\sqrt{12}}$ with probability $\frac{1}{2}$. 
+
+    working with first factor, we apply Hadamard on the two qubits, and then find the probability of getting $\ket{00}$(which corresponds to $\ket{++}$ in the original case).
+
+    Applying Hadamard, we get $\frac{3\ket{00}+\ket{01}+\ket{10}+\ket{11}}{\sqrt{12}}$ and probability of getting $\ket{00}$ is $\frac{3}{4}$ in this case.
+    
+    Similarly for the other factor Applying Hadamard, we get $\frac{3\ket{00}-\ket{01}-\ket{10}+\ket{11}}{\sqrt{12}}$ and probability of getting $\ket{00}$ is $\frac{3}{4}$ in this case as well.
+
+    Therefore the overall probabilty for this case comes out to be $\frac{3}{4}$.
+
+    Similarly for the case when qubit is $\ket{-}$, we get the probability as $\frac{3}{4}$.
+
+    Therefore the probability in all the four cases comes out to be $\frac{3}{4}$ which ultimately is the overall probability.
     \end{proof}
 \end{solution}
  

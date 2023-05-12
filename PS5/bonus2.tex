@@ -1,0 +1,32 @@
+\begin{solution}{Combiners for collapsing hash functions}\label{ques:x}
+    \begin{question}
+    Is the concatenating combiner a good combiner for the collapse-binding property?
+    \end{question}
+    \tcblower{}
+    \begin{proof}
+    Let $\calH_0,\calH_1 : \{0,1\}^n \rightarrow\{0,1\}^{n/2}$.
+    
+    Let $\calH = \calH_0 \| \calH_1$ where at-least one of $\calH_0,\calH_1$ is a collapse binding hash function. We will prove that $\calH$ is also a collapse binding hash function through contradiction.
+
+    Suppose $\calH$ is not a collapse binding hash function. then Using an adversary $\calA$ that breaks the collapsing property of $\calH$, we can achieve a reduction $\calB$ that breaks collapsing property of $\calH_0$ if applicable.
+
+    \textbf{Reduction:}
+
+    \begin{enumerate}
+        \item Challenger sends a hash key k to $\calB$ who forwards the same to $\calA$.
+        \item $\calA$ sends a string $h \in \{0,1\}^n, h=h_0\|h_1$ to $\calB$ along with a quantum state $\ket{\psi} = \Sigma_{x:H(x) =h}\ket{x}$.
+        \item $\calB$ sends $h_0$ along with $\ket{\psi}$ to Challenger.
+        \item Challenger chooses a bit b, if $b=0$ it measures $\ket{\psi}$ and sends it back otherwise it sends back $\ket{\psi}$ to $\calB$.
+        \item $\calB$ forwards the message from Challenger to $\calA$.
+        \item $\calA$ sends a bit b' to $\calB$ who forward it to Challenger and wins if $b=b'$.
+    \end{enumerate}
+
+    As Reduction is just passing the messages to $\calA$, $\ket{\psi}$ is a also a valid superposition for $\calH_0$. As $\calA$ is able to win with a non-negligible probability, $\calB$ will also win with a non-negligible probability.
+
+    Similarly a reduction can be shown for $\calH_1$.
+
+    But Since atleast one of $\calH_0,\calH_1$ is collapse binding, we reach a contradiction. Therefore $\calH$ is also a collapse binding hash function.
+    
+    \end{proof}
+\end{solution}
+ 

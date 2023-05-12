@@ -2,11 +2,32 @@
     \begin{question}
     Suppose the QM adversary always outputs a forgery of the form
     \[\sum_{x,s,s'\\H(x) = h} \alpha_{x,s,x,s'}\ket{x}_{x_1}\ket{s}_{s_1}\ket{x}_{x_2}\ket{s'}_{s_2} \]
-    Show that if the challenger runs $VerifyCoin$ on$ (X_1, S_1) $and $(X_2, S_2)$, the probability of an accept in both the verifications is at most $c$ for some constant $c < 1$.
+    Show that if the challenger runs $VerifyCoin$ on $ (X_1, S_1) $ and $(X_2, S_2)$, the probability of an accept in both the verifications is at most $c$ for some constant $c < 1$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+    Given coins $(X_1, S_1)$ and $(X_2, S_2)$, since $X_1 = X_2$, there are no collisions to be found, hence we look at the probabilities of successful validation. On running the Test 1 on the state $\ket{\phi} = \sum_{x,s,s' , H(x) = h} \alpha_{x,s,x,s'}\ket{x}_{x_1}\ket{s}_{s_1}\ket{x}_{x_2}\ket{s'}_{s_2}$, the probability of validation passing is obtained as follows:
+    \begin{equation}
+        \begin{split}
+            P_1 = \prob{Alg_2(\ket{\phi}) = \ket{11}}
+        \end{split}
+    \end{equation}
+
+    For Test 2, let $\ket{\rho}$ be the state after measuring $\ket{\phi}$, the probability of validity is as follows:
+    \begin{equation}
+        \begin{split}
+            P_2 &= \prob{Alg_2(\ket{\phi}) = 0}\\
+            &= \prob{Alg_2(\sum \alpha^2 \ket{y}\ket{s^*}\ket{y}\ket{s'^*}) = \ket{00}}
+        \end{split}
+    \end{equation}
+    
+    The overall probability of validation = $\frac{1}{2}P_1+\frac{1}{2}P_2$
+    some const s.t. 
+    Alg2 behaviour in test 1 and test 2 add up to 1 
+    p1, 1-p1 +- eps
+    3/4?
+    7/8?
+    
     \end{proof}
 \end{solution}
  
