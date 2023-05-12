@@ -5,7 +5,50 @@
     \tcblower{}
     \begin{proof}
 
-    The Partial measurement of 
+    let the input be $\ket{\psi} = \alpha \ket{0}+\beta\ket{1}$ with $\alpha^2+\beta^2=1$.
+
+    Now applying Unitary on $\ket{\psi}\ket{0}\ket{0}$,
+
+    \[U\cdot\ket{\psi}\ket{0}\ket{0} = \bigg(\alpha\sqrt{\frac{2}{3}}\ket{00} + \frac{\beta}{\sqrt{6}}\ket{10}+ \frac{\beta}{\sqrt{6}}\ket{01}\bigg)\ket{0} + \bigg(\beta\sqrt{\frac{2}{3}}\ket{11} + \frac{\alpha}{\sqrt{6}}\ket{10}+ \frac{\alpha}{\sqrt{6}}\ket{01}\bigg)\ket{1}\]
+
+    Now measuring the last qubit, we get 
+    \begin{equation*}
+        \ket{\phi} = \{(p_i,\frac{1}{\sqrt{p_i}}\ket{\phi_i})\}_{i\in\{0, 1\}}
+    \end{equation*}
+
+    Where,
+    \begin{equation*}
+    \begin{split}
+        \ket{\phi_0} &= \alpha\sqrt{\frac{2}{3}}\ket{00} + \frac{\beta}{\sqrt{6}}\ket{10}+ \frac{\beta}{\sqrt{6}}\ket{01}\\
+        \ket{\phi_1} &= \beta\sqrt{\frac{2}{3}}\ket{11} + \frac{\alpha}{\sqrt{6}}\ket{10}+ \frac{\alpha}{\sqrt{6}}\ket{01}\\
+        p_0 &= \frac{2\alpha^2+\beta^2}{3} = \frac{1+\alpha^2}{3}\\
+        p_1 &= \frac{\alpha^2+2\beta^2}{3}= \frac{1+\beta^2}{3}\\
+        p_0 + p_1 &=1
+    \end{split}
+    \end{equation*}
+
+    Therefore, we get 
+    \[|\bra{\psi}\bra{\psi}\rho\ket{\psi}\ket{\psi}| = (|\bra{\psi}\bra{\psi}\ketbra{\phi_0}\ket{\psi}\ket{\psi}|) +(|\bra{\psi}\bra{\psi}\ketbra{\phi_1}\ket{\psi}\ket{\psi}|)\]
+
+    \begin{equation*}
+        \begin{split}
+            |\bra{\psi}\bra{\psi}\ketbra{\phi_0}\ket{\psi}\ket{\psi}|&=\bigg(\alpha^3\sqrt{\frac{2}{3}} + \alpha\beta^2\frac{2}{\sqrt{6}}\bigg)^2\\
+            &=\frac{2\alpha^2}{3}\bigg(\alpha^2+\beta^2\bigg)^2\\
+            &= \frac{2\alpha^2}{3}
+        \end{split}
+    \end{equation*}
+
+    Similarly, \begin{equation*}
+        |\bra{\psi}\bra{\psi}\ketbra{\phi_1}\ket{\psi}\ket{\psi}| = \frac{2\beta^2}{3}
+    \end{equation*}
+
+    Therefore, 
+    \begin{equation*}
+        \begin{split}
+        |\bra{\psi}\bra{\psi}\rho\ket{\psi}\ket{\psi}| &= \frac{2}{3}(\alpha^2+\beta^2)\\
+        &= \frac{2}{3}
+        \end{split}
+    \end{equation*}
     \end{proof}
 \end{solution}
  
