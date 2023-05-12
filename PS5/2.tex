@@ -8,7 +8,7 @@
         Let $H_k$ be an SSB-hash with input domain $(\{0,1\}^s)^L$, co-domain $\{0,1\}^l$ with hash key $k$. The same construction of $H_k$ works as a collapsing hash. The property of $H_k$ is that $\prob{\exists x,x' \text{ s.t. } x_i \neq x'_i, H_k(x) = H_k(x')} = negl$ where $x = (x[0], x[1], \ldots x[L-1]), x' = (x'[0], x'[1], \ldots x'[L-1])$
     \end{claim}
     \begin{proof}
-        We need to show that if and Adversary can break Collapsing hash, SSB-Hash is broken. SSB-Hash game can be defined as finding a collision $x,x'$. Let us consider the following reduction-
+        We need to show that if an Adversary can break Collapsing hash, SSB-Hash is broken. SSB-Hash game can be defined as finding a collision $x,x'$. Let us consider the following reduction-
         \begin{figure}[H]
             \centering
             \includegraphics[width = 0.9\textwidth]{image.png}
@@ -25,8 +25,7 @@
         \[\prob {\text{finding a collision}} = \prob{H_k(x_0) = h}\times \prob{H_k(x_1) = h} = p\]
         which is non-negligible.
     \end{proof}
-
-    Hence our proposed use of SSB-Hash as a collapsing hash is valid.
+    This is a contradiction of our assumption that the given SSB-Hash scheme is secure. Therefore, our proposed use of SSB-Hash as a collapsing hash must be valid.
     
     
     \end{proof}
