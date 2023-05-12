@@ -1,10 +1,10 @@
-\begin{solution}{Question x}\label{ques:x}
+\begin{solution}{Question 5.2}\label{ques:52}
     \begin{question}
-    ques
+        (Completeness) Prove that the honest quantum prover’s response is accepted with probability $1$ if $c = 0$, else it is accepted with probability $\cos^2\frac{\pi}{8}$ if $c = 1$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        If $c = 0$, then, if the prover followed the protocol honestly, on measuring $\ket{\psi_1}$ it will definitely get one of the pre-images of $y$. Thus, the verifier will always accept in that case. Otherwise, if $c = 1$, then the measurement is at a distance of $\pi/8$ from the actual state $\ket{\psi}$ (which is at an angle $\theta \in \{-\pi/4, 0, \pi/4, \pi/2\}$ with respect to $\ket{0}$). Therefore, the probability of an honest prover outputting the correct bit is $\cos^2\frac{\pi}{8}$.
     \end{proof}
 \end{solution}
  

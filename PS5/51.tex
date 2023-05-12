@@ -1,10 +1,15 @@
-\begin{solution}{Question x}\label{ques:x}
+\begin{solution}{Question 5.1}\label{ques:51}
     \begin{question}
-    ques
+        Complete Step $V_4$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        We assume that $V_4$ executes iff $c = 1$. In the case when $c = 0$, the verifier simply checks if the obtained $x_b$ is one of $x_0$ or $x_1$ (the verifier knows the two pre-images using $\mathsf{td}$ and $y$). The steps of $V_4$ are:
+        \begin{enumerate}
+            \item The verifier first computes $x_0, x_1$ using $\mathsf{td}, y$.
+            \item Using $r, b, d, x_0, x_1$, the verifier can uniquely determine the state $\ket{\psi_2}$. Note that $\ket{\psi_2} = \ket{b}\ket{d}\ket{\psi}$, where $\ket{\psi} \in \{\ket{0}, \ket{1}, \ket{+}, \ket{-}\}$.
+            \item Based on $c'$, the verifier knows what should be the most-likely response of the prover. If the response is the same, the verifier accepts, else it rejects.
+        \end{enumerate}
     \end{proof}
 \end{solution}
  
