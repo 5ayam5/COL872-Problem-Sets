@@ -1,10 +1,30 @@
 \begin{solution}{Question x}\label{ques:x}
     \begin{question}
-    ques
+        Now consider a general QM adversary that outputs a forgery of the form
+        \begin{equation}
+            \sum_{\underset{H(x) = H(x') = h}{x, s, x', s':}} \alpha_{x, s, x', s'}\ket{x}_{X_1}\ket{s}_{S_1}\ket{x'}_{X_2}\ket{s'}_{S_2}\text{ where }\sum_{\underset{H(x) = h}{x, s, s'}} |\alpha_{x, s, x, s'}|^2 > 1 - \epsilon
+        \end{equation}
+        Show that if the challenger runs $\mathsf{VerifyCoin}$ on $(X_1, S_1)$ and $(X_2, S_2)$, the probability of an accept in both the verifications is at most c0 for some constant $c' < 1$.
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+        (Note: we prove a general result for any $1 \geq \epsilon > 0$)\par
+        Let the probability of success on applying $\mathsf{Test1}$ on both coins be $p_1$ and on applying $\mathsf{Test2}$ be $p_2$. Now, we find a bound on $p_2$ in terms of $p_1$ using the trace distance between the adversary's state and the state obtained after measuring the register $x$ ($=2\sqrt{\epsilon}$), 
+        \begin{equation}
+            \begin{split}
+                p_1 &\leq \prob{x = x'}\cdot\left(1 - p_0 + \mathsf{Tr}_{dist}\right) + \prob{x \neq x'}\cdot 1\\
+                    &= (1 - \epsilon)\cdot(1 - p_0 + 2\sqrt{\epsilon}) + \epsilon
+            \end{split}
+        \end{equation}
+        Thus, the total probability of success is,
+        \begin{equation}
+            \begin{split}
+                \frac{1}{2}(p_0 + p_1) = \frac{1 + \epsilon\cdot p_0 + 2\sqrt{\epsilon}\cdot(1 - \epsilon)}{2}
+                                      &\leq \frac{1}{2} + \frac{\sqrt{\epsilon}}{2}\cdot(2 + p_0 - \sqrt{\epsilon})\\
+                                      &\leq \frac{1}{2} + c'
+            \end{split}
+        \end{equation}
+        Therefore, any adversary has atmost a constant probability of giving a valid forgery for the publically-verifiable QM scheme.
     \end{proof}
 \end{solution}
  
