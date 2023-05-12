@@ -4,7 +4,20 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-    proof
+    The Procedure is as follows:
+
+    \begin{enumerate}
+        \item Bank sends a qubit $\ket{\psi}$ to adversary.
+        \item Adversary measures the qubit in $\{\ket{0},\ket{1}\}$ basis.
+        \item Adversary creates two identical copies based on the measured value and sends the qubits to the Bank.
+    \end{enumerate}
+
+    If the qubit is in $\{\ket{0},\ket{1}\}$ basis, we will get the correct measurement and will be able to model copies correctly and fool the bank.
+
+    If the qubit is in $\{\ket{+},\ket{-}\}$ basis, The adversary measures in $\{\ket{0},\ket{1}\}$ basis and models the qubit in the same basis. When the bank measures the copies in $\{\ket{+},\ket{-}\}$ basis, there is a 1/2 probability of getting the correct measurement for each copy.
+
+    Therefore, the overall probability of fooling the Bank is $\frac{1}{2} \times 1 + \frac{1}{2} \times \frac{1}{2} \times \frac{1}{2} = \frac{5}{8}$
+    
     \end{proof}
 \end{solution}
  
