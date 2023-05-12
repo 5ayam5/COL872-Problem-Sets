@@ -6,28 +6,27 @@
     \end{question}
     \tcblower{}
     \begin{proof}
-    Given coins $(X_1, S_1)$ and $(X_2, S_2)$, since $X_1 = X_2$, there are no collisions to be found, hence we look at the probabilities of successful validation. On running the Test 1 on the state $\ket{\phi} = \sum_{x,s,s' , H(x) = h} \alpha_{x,s,x,s'}\ket{x}_{x_1}\ket{s}_{s_1}\ket{x}_{x_2}\ket{s'}_{s_2}$, the probability of validation passing is obtained as follows:
+    Given coins $(X_1, S_1)$ and $(X_2, S_2)$, since $X_1 = X_2$, there are no collisions to be found, hence we look at the probabilities of successful validation. On running $\mathsf{Test1}$ on the state $\ket{\phi} = \sum_{x,s,s' , H(x) = h} \alpha_{x,s,s'}\ket{x}_{X_1}\ket{s}_{S_1}\ket{x}_{X_2}\ket{s'}_{S_2}$, the probability of validation passing is obtained as follows:
     \begin{equation}
         \begin{split}
-            P_1 = \prob{Alg_2(\ket{\phi}) = \ket{11}}
+            p_1 &= \prob{\mathsf{Measure}(\mathsf{Alg}_2(\ket{\phi}, \ket{00})) = 11}\\
+            \implies p_1 &= \prob{\mathsf{Measure}\left(\sum_{x,s,s',b_0,b_1}\alpha_{x,s,s'}\cdot\beta_{x,s,s',b_0,b_1}\ket{y_x}\ket{t_s}\ket{z_x}\ket{u_{s'}}\ket{b_0b_1}\right) = 11}\\
+            \implies p_1 &= \sum_{x,s,s'}|\alpha_{x,s,s'}\cdot\beta_{x,s,s',1,1}|^2
         \end{split}
     \end{equation}
 
-    For Test 2, let $\ket{\rho}$ be the state after measuring $\ket{\phi}$, the probability of validity is as follows:
+    For $\mathsf{Test2}$, let $\rho$ be the state after measuring $\ket{\phi}$, the probability of validity is as follows:
     \begin{equation}
         \begin{split}
-            P_2 &= \prob{Alg_2(\ket{\phi}) = 0}\\
-            &= \prob{Alg_2(\sum \alpha^2 \ket{y}\ket{s^*}\ket{y}\ket{s'^*}) = \ket{00}}
+            p_2 &= \prob{\mathsf{Measure}(\mathsf{Alg}_2(\rho, \ket{00})) = 00}\\
+                &\leq 1 - \prob{\mathsf{Measure}(\mathsf{Alg}_2(\rho, \ket{00})) = 11}\\
+                &\leq 1 - \sum_{x,s,s'} \alpha_{x,s,s'}^2 \prob{\mathsf{Measure}\left(Alg_2\left(\ket{x}\ket{s}\ket{x}\ket{s'}, \ket{00}\right)\right) = 00}\\
+                &\leq 1 - \sum_{x,s,s'} \alpha_{x,s,s'}^2 \prob{\mathsf{Measure}\left(\ket{y_x}\ket{t_s}\ket{z_x}\ket{u_{s'}}\left(\sum_{b_0,b_1}\beta_{x,s,s',b_0,b_1}\ket{b_0b_1}\right)\right) = 00}\\
+                &\leq 1 - \sum_{x,s,s'}|\alpha_{x,s,s'}\cdot\beta_{x,s,s',1,1}|^2\\
+                &\leq 1 - p_1
         \end{split}
     \end{equation}
-    
-    The overall probability of validation = $\frac{1}{2}P_1+\frac{1}{2}P_2$
-    some const s.t. 
-    Alg2 behaviour in test 1 and test 2 add up to 1 
-    p1, 1-p1 +- eps
-    3/4?
-    7/8?
-    
+    Therefore, the probability of the adversary succeeding is $(p_1 + p_2)/2\leq 1/2 (= c)$.
     \end{proof}
 \end{solution}
  
